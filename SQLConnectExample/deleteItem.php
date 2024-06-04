@@ -10,10 +10,10 @@
 </div></br>
 <?php
 //fields for connecting to the database
-$servername = "";
-$username = "";
-$password = "";
-$dbname = "";
+$servername = "oceanus.cse.buffalo.edu:3306";
+$username = "jacobzal";
+$password = "50346440";
+$dbname = "cse442_2024_summer_team_c_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -39,7 +39,7 @@ if (empty($count)) {
 }
 elseif ($count == 1) {
     echo "Table Exists".nl2br("\n");
-    $sql = "DELETE FROM TestTable WHERE id=1";
+    $sql = "DELETE FROM TestTable WHERE firstname='Test'";
 
     if ($conn->query($sql) === TRUE) {
         echo "Record deleted successfully";
