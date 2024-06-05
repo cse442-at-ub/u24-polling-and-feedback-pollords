@@ -1,0 +1,5 @@
+RESOURCES:
+
+1. https://www.chartjs.org/docs/latest/getting-started/ - This page demonstrates the basics behind importing the chart.js library and how to utilize it at a simple level in HTML/plain Javascript.
+
+2. https://chatgpt.com/?oai-dm=1 - Prompted GPT with the question "Can you write a sample program for displaying bar charts using chart.js in HTML and plain Javascript?" This generated the code behind the sample chart, and demonstrates the basics behind using the chart.js library.
