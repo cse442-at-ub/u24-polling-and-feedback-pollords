@@ -1,0 +1,9 @@
+
+Resources:
+https://www.w3schools.com/css/css_rwd_intro.asp - w3schools Responsive Web Design Introduction
+This page provides an introduction to responsive web design, including the use of media queries, flexible grids, and images to create web pages that adapt to different screen sizes. It offers practical examples and code snippets to illustrate the concepts.
+https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design - Mozilla Responsive Design Basics
+This resource explains the fundamentals of responsive design, including fluid grid layouts, flexible images, and media queries. It also discusses best practices for designing responsive web pages and provides code examples to demonstrate key techniques.
+https://css-tricks.com/a-complete-guide-to-css-media-queries/ - CSS Tricks Media Queries
+This guide offers a comprehensive overview of CSS media queries, detailing how to use them to apply styles based on device characteristics such as screen size, resolution, and orientation. It includes numerous examples and use cases to help developers implement responsive design effectively.
+	

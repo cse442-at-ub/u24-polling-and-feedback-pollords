@@ -1,0 +1,4 @@
+https://www.w3schools.com/php/php_mysql_intro.asp - Simple MySQL instructions for PHP
+https://www.w3schools.com/php/default.asp - Simple General PHP tutorial
+https://www.php.net/manual/en/mysqlinfo.intro.php - In depth php mysqli api information
+https://www.php.net/manual/en/language.basic-syntax.php - In depth php information

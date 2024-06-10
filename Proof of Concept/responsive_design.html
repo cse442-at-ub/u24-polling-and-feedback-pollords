@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Proof of Concept</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: lightcoral;
+            width: 50%;
+            height: 50%;
+            min-width: 300px;
+            min-height: 200px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 80%;
+                height: 40%;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .container {
+                width: 60%;
+                height: 50%;
+            }
+        }
+        @media (min-width: 1025px) {
+            .container {
+                width: 50%;
+                height: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>This design responds to the browser's size and shape</p>
+    </div>
+</body>
+</html>
