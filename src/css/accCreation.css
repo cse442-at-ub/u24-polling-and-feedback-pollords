@@ -48,7 +48,7 @@ label:after {
 
 .registerBtn {
     display: block;
-    margin-top: 30px;
+    margin-top: 85px;
     font-size: 20px;
     font-weight: bold;
     border-radius: 10px;
@@ -64,10 +64,53 @@ label:after {
 
 .dropdown {
     text-align: left;
-    border-radius: 10px;
+    /* border-radius: 10px; */ /* out of whack with list if border radius implemented */
     font-family: Arial;
     font-size: 16px;
     font-weight: bold;
+    width: 137px;
+    height: 26px;
+}
+
+.ddOptions {
+    text-align: left;
+    border-radius: 10px; 
+    border: none; /* still ugly.. */
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    display: none;
+    width: 137px;
+    height: 26px;
+}
+
+.ddOptions:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.ddList {
+    /*border-radius: 10px;*/
+    border: none;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 96px;
+    height: 52px;
+    list-style-type: none;
+    /*background-color: #FFF;*/
+    margin-top: 0px;
+}
+
+.ddList li {
+    text-align: left;
+    margin-left: -31px;
+}
+
+.ddList li:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
 }
 
 .dropdown:hover {
@@ -80,9 +123,14 @@ label:after {
 }
 
 .accType {
-    position: relative;
+    /*position: relative;*/
+    position: absolute;
     display: inline-block;
-    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-top: 10px;
 }
 
 .options {
@@ -94,6 +142,15 @@ label:after {
     background-color: gray; /* placeholder */
 }
 
-/*.errMsg {
-    display: none;
-}*/
+.errMsg {
+    color: red; 
+    display: inline-block; 
+    position: absolute; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    left: 0;
+    right: 0; 
+    font-family: Arial; 
+    font-size: 16px;
+}
