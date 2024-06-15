@@ -28,10 +28,46 @@
             </label>
         </div>
 
-        <p style="text-align: center; margin-right: 10px">Dropdown goes here</p>
+        <center><div class="accType">
+            <button class="dropdown" onclick="openCloseDropDown()">Account Type<img src="../assets/dropdown.svg" width="17px" height="17px"></button>
+            <span id="student"></span>
+            <span id="instructor"></span>
+        </div></center>
+        <script>
+            function openCloseDropDown () {
+                stdnt = document.getElementById("student");
+                strctr = document.getElementById("instructor");
+                
+                if (stdnt.textContent === "") { // need to add functionality to select by Monday?
+                    console.log("called on the odd");
+                    stdnt.textContent = "Student";
+                    strctr.textContent = "Instructor";
+                } else {
+                    console.log("there should be something under the dropdown...", stdnt.textContent, strctr.textContent);
+                    stdnt.textContent = "";
+                    strctr.textContent = "";
+                }
+            }
+        </script>
 
         <br /> <br />
-        <center><button class="registerBtn">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. PAGE OR LANDING. OR RETURN ERR -->
+        <center><span id="errMsg" style="color: red; display: inline-block; vertical-align: center; font-family: Arial; font-size: 16px"></span></center>
+        <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
+        <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
+        <script>
+            function errDisplay () {
+                addr = document.getElementById("email").value;
+                var err = document.getElementById("errMsg");
+                //console.log(addr); // test
+                if (addr.slice(-12) !== "@buffalo.edu") {
+                    err.textContent = "Email must be a buffalo.edu address";
+                    //err.style.color = "red";
+                } else {
+                    err.textContent = "";
+                    // should redirect to confirmation page? also in the future going to want different error cases (email registered, password, etc.)
+                }
+            }
+        </script> 
 
 </body>
 </html>

@@ -34,7 +34,7 @@ label:after {
 .inputBox {
     margin: auto;
     margin-top: 15px;
-    width: 25%;
+    width: 25%; /* this is a problem for mobile */
 }
 
 .inputBox p {
@@ -46,7 +46,7 @@ label:after {
     margin-right: 25px;*/
 }
 
-button {
+.registerBtn {
     display: block;
     margin-top: 30px;
     font-size: 20px;
@@ -57,7 +57,43 @@ button {
     height: 48px;
 }
 
-button:hover {
+.registerBtn:hover {
     cursor: pointer;
     background-color: #C0C0C0;
 }
+
+.dropdown {
+    text-align: left;
+    border-radius: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dropdown:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.ddTriangle { /* leaving out for now */
+    margin-top: 3px;
+}
+
+.accType {
+    position: relative;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.options {
+    display: none;
+    position: absolute; /* new, probably won't do anything */
+}
+
+.options p:hover {
+    background-color: gray; /* placeholder */
+}
+
+/*.errMsg {
+    display: none;
+}*/
