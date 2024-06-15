@@ -32,9 +32,20 @@ label:after {
 }
 
 .inputBox {
+
+    /*position: absolute;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0; /* new stuff ends */
+
     margin: auto;
+    /*margin-left: auto;
+    margin-right: auto;*/
     margin-top: 15px;
-    width: 25%; /* this is a problem for mobile */
+    /*width: 25%; /* this is a problem for mobile */
+    width: 300px; /* fix */
 }
 
 .inputBox p {
@@ -105,7 +116,7 @@ label:after {
 
 .ddList li {
     text-align: left;
-    margin-left: -31px;
+    margin-left: -33px;
 }
 
 .ddList li:hover {
