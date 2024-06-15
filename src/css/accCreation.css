@@ -64,10 +64,15 @@ label:after {
 
 .dropdown {
     text-align: left;
+    border-radius: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .dropdown:hover {
     cursor: pointer;
+    background-color: #C0C0C0;
 }
 
 .ddTriangle { /* leaving out for now */
@@ -77,6 +82,7 @@ label:after {
 .accType {
     position: relative;
     display: inline-block;
+    margin-top: 8px;
 }
 
 .options {
@@ -87,3 +93,7 @@ label:after {
 .options p:hover {
     background-color: gray; /* placeholder */
 }
+
+/*.errMsg {
+    display: none;
+}*/
