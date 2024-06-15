@@ -29,9 +29,16 @@
         </div>
 
         <center><div class="accType">
-            <button class="dropdown" onclick="openCloseDropDown()">Account Type<img src="../assets/dropdown.svg" width="17px" height="17px"></button>
-            <span id="student"></span>
-            <span id="instructor"></span>
+            <!--<button class="dropdown" onclick="openCloseDropDown()" id="ddBtn">Account Type<img src="../assets/dropdown.svg" width="17px" height="17px"></button> -->
+            <button class="dropdown" onclick="openCloseDropDown()" id="ddBtn"><span>Account Type</span><img src="../assets/dropdown.svg" width="17px" height="17px" id="ddImg" style="float: right"></button>
+            <!--<span id="student"></span>
+            <span id="instructor"></span>-->
+            <!-- <button id="student" onclick="typeSelector('student')" class="ddOptions"></button>
+            <button id="instructor" onclick="typeSelector('instructor')" class="ddOptions"></button> -->
+            <ul class="ddList" id="ddList">
+                <li id="student" onclick="typeSelector('student')"></li>
+                <li id="instructor" onclick="typeSelector('')" style="margin-top: 8px"></li>
+            </ul>
         </div></center>
         <script>
             function openCloseDropDown () {
@@ -39,19 +46,42 @@
                 strctr = document.getElementById("instructor");
                 
                 if (stdnt.textContent === "") { // need to add functionality to select by Monday?
-                    console.log("called on the odd");
+                    //console.log("called on the odd");
                     stdnt.textContent = "Student";
                     strctr.textContent = "Instructor";
+                    stdnt.style.display = "block"; // new
+                    strctr.style.display = "block"; // new
+                    document.getElementById("ddList").style.backgroundColor = "#F0F0F0";
                 } else {
-                    console.log("there should be something under the dropdown...", stdnt.textContent, strctr.textContent);
+                    //console.log("there should be something under the dropdown...", stdnt.textContent, strctr.textContent);
                     stdnt.textContent = "";
                     strctr.textContent = "";
+                    stdnt.style.display = "none";
+                    strctr.style.display = "none";
+                    document.getElementById("ddList").style.backgroundColor = "#A5C7CE";
+                }
+            }
+
+            function typeSelector (type) {
+                var img = document.getElementById("ddImg"); // pls work
+                if (type === 'student') {
+                    //document.getElementById("ddBtn").innerText = "Student"; // removing icon... might not be feasible to fix within Sprint 2
+                    document.querySelector("#ddBtn span").innerText = "Student";
+                    document.querySelector("#ddBtn img").innerText = img;
+                    openCloseDropDown();
+                } else { 
+                    //document.getElementById("ddBtn").textContent = "Instructor";
+                    //document.getElementById("ddBtn").innerText = "Instructor";
+                    document.querySelector("#ddBtn span").innerText = "Instructor";
+                    document.querySelector("#ddBtn img").innerText = img;
+                    openCloseDropDown();
                 }
             }
         </script>
 
         <br /> <br />
-        <center><span id="errMsg" style="color: red; display: inline-block; vertical-align: center; font-family: Arial; font-size: 16px"></span></center>
+        <!-- <center><span id="errMsg" style="color: red; display: inline-block; vertical-align: center; font-family: Arial; font-size: 16px"></span></center> -->
+        <center><span id="errMsg" class="errMsg"></span></center>
         <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
         <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
         <script>
