@@ -85,6 +85,14 @@
         <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
         <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
         <script>
+
+
+            function requestHandler(msg) {
+                if (msg === "Successful code confirmation") {
+                    alert("Request successful!");
+                }
+            }
+            
             function errDisplay () {
                 var addr = document.getElementById("email").value;
                 var pw = document.getElementById("password").value;
