@@ -1,5 +1,4 @@
 <?php
-include 'functions.php';
 function loginPost($username, $password) {
     if (empty($username) || empty($password)) {
         return false;
