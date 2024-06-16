@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     $result = registrationPost($username, $password);
-    echo createConfirmCode($username, $password);
     if ($result) {
+        echo createConfirmCode($username, $password);
         echo json_encode([
             'Method' => 'POST',
             'Path' => 'register',
