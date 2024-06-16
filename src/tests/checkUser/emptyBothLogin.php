@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include($_SERVER['DOCUMENT_ROOT'].'/u24-polling-and-feedback-pollords/src/php/functions.php');
+include('../../php/checkUser.php');
 
 list($passed,$message) = checkUser("","");
 echo $message;
