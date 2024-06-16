@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Enter the login and password for the associated account:</h1>
-        <form>
+        <form action="http://localhost:8000/loginPHP.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             
@@ -18,7 +18,12 @@
             
             <button type="submit">Login</button>
         </form>
-        <p><a href="#">Need a new account? Click here to register</a></p>
+        <p onclick="toRegistration()">Need a new account? Click here to register</p>
     </div>
+    <script>
+        function toRegistration() {
+            document.location = 'accCreation.html';
+        }
+    </script>
 </body>
 </html>
