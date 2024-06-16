@@ -24,7 +24,7 @@
 
         <div class="inputBox">
             <label>Confirm Password:
-                <input id="password" name="password" type="password" />
+                <input id="confirmPassword" name="confirmPassword" type="password" />
             </label>
         </div>
 
@@ -86,15 +86,23 @@
         <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
         <script>
             function errDisplay () {
-                addr = document.getElementById("email").value;
+                var addr = document.getElementById("email").value;
+                var pw = document.getElementById("password").value;
+                var cpw = document.getElementById("confirmPassword").value;
                 var err = document.getElementById("errMsg");
-                //console.log(addr); // test
-                if (addr.slice(-12) !== "@buffalo.edu") {
-                    err.textContent = "Email must be a buffalo.edu address";
+                if (addr === "" || pw === "" || cpw === "") {
+                    err.textContent = "Please fill out all three fields and select a role";
                     //err.style.color = "red";
-                } else {
+                } else if  (addr.slice(-12) !== "@buffalo.edu"){
+                    err.textContent = "Email must be a buffalo.edu address";
+                } else if (pw !== cpw) {
+                    err.textContent = "Passwords do not match";
+                } else if (document.querySelector("#ddBtn span").innerText !== "Student") {
+                    err.textContent = "Please select an account type";
+                } else { // IN THE FUTURE - ADD CHECK FOR IF EMAIL ALREADY REGISTERED
+                    console.log("Success");
                     err.textContent = "";
-                    // should redirect to confirmation page? also in the future going to want different error cases (email registered, password, etc.)
+                    document.location = 'accConfirmation.html'; // direct to confirmation page
                 }
             }
         </script> 
