@@ -86,8 +86,10 @@
             }
 
             function requestHandler(msg) {
-                if (msg === "Successful code confirmation") {
-                    alert("Request successful!");
+                if (msg === "Successful confirmation code generated") {
+                    console.log("Request successful!");
+                } else if (msg === "Incorrect Password length") {
+                    console.log("Incorrect password length");
                 }
             }
             
