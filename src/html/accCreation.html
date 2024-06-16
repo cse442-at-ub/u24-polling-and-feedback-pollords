@@ -97,10 +97,12 @@
                     err.textContent = "Email must be a buffalo.edu address";
                 } else if (pw !== cpw) {
                     err.textContent = "Passwords do not match";
-                } else if (document.querySelector("#ddBtn span").innerText !== "Student") {
+                } else if (document.querySelector("#ddBtn span").innerText == "Account Type") {
                     err.textContent = "Please select an account type";
+                } else if (pw = cpw && pw.length < 8) {
+                    err.textContent = "Password needs to be at least 8 characters in length"
                 } else { // IN THE FUTURE - ADD CHECK FOR IF EMAIL ALREADY REGISTERED
-                    console.log("Success");
+                    //console.log("Success");
                     err.textContent = "";
                     document.location = 'accConfirmation.html'; // direct to confirmation page
                 }
