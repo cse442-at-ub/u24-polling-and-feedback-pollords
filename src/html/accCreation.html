@@ -85,6 +85,12 @@
                 document.getElementById('response').innerText = JSON.stringify(result, null, 2);
             }
 
+            function requestHandler(msg) {
+                if (msg === "Successful code confirmation") {
+                    alert("Request successful!");
+                }
+            }
+            
             function errDisplay () {
                 var addr = document.getElementById("email").value;
                 var pw = document.getElementById("password").value;
