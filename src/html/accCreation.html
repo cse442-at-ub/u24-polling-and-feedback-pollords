@@ -28,12 +28,7 @@
         </div>
 
         <center><div class="accType">
-            <!--<button class="dropdown" onclick="openCloseDropDown()" id="ddBtn">Account Type<img src="../assets/dropdown.svg" width="17px" height="17px"></button> -->
             <button class="dropdown" onclick="openCloseDropDown()" id="ddBtn"><span>Account Type</span><img src="../assets/dropdown.svg" width="17px" height="17px" id="ddImg" style="float: right"></button>
-            <!--<span id="student"></span>
-            <span id="instructor"></span>-->
-            <!-- <button id="student" onclick="typeSelector('student')" class="ddOptions"></button>
-            <button id="instructor" onclick="typeSelector('instructor')" class="ddOptions"></button> -->
             <ul class="ddList" id="ddList">
                 <li id="student" onclick="typeSelector('student')"></li>
                 <li id="instructor" onclick="typeSelector('')" style="margin-top: 8px"></li>
@@ -44,15 +39,13 @@
                 stdnt = document.getElementById("student");
                 strctr = document.getElementById("instructor");
                 
-                if (stdnt.textContent === "") { // need to add functionality to select by Monday?
-                    //console.log("called on the odd");
+                if (stdnt.textContent === "") {
                     stdnt.textContent = "Student";
                     strctr.textContent = "Instructor";
-                    stdnt.style.display = "block"; // new
-                    strctr.style.display = "block"; // new
+                    stdnt.style.display = "block";
+                    strctr.style.display = "block";
                     document.getElementById("ddList").style.backgroundColor = "#F0F0F0";
                 } else {
-                    //console.log("there should be something under the dropdown...", stdnt.textContent, strctr.textContent);
                     stdnt.textContent = "";
                     strctr.textContent = "";
                     stdnt.style.display = "none";
@@ -62,15 +55,12 @@
             }
 
             function typeSelector (type) {
-                var img = document.getElementById("ddImg"); // pls work
+                var img = document.getElementById("ddImg");
                 if (type === 'student') {
-                    //document.getElementById("ddBtn").innerText = "Student"; // removing icon... might not be feasible to fix within Sprint 2
                     document.querySelector("#ddBtn span").innerText = "Student";
                     document.querySelector("#ddBtn img").innerText = img;
                     openCloseDropDown();
                 } else { 
-                    //document.getElementById("ddBtn").textContent = "Instructor";
-                    //document.getElementById("ddBtn").innerText = "Instructor";
                     document.querySelector("#ddBtn span").innerText = "Instructor";
                     document.querySelector("#ddBtn img").innerText = img;
                     openCloseDropDown();
@@ -79,7 +69,6 @@
         </script>
 
         <br /> <br />
-        <!-- <center><span id="errMsg" style="color: red; display: inline-block; vertical-align: center; font-family: Arial; font-size: 16px"></span></center> -->
         <center><span id="errMsg" class="errMsg"></span></center>
         <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
         <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
@@ -103,7 +92,6 @@
                 var err = document.getElementById("errMsg");
                 if (addr === "" || pw === "" || cpw === "") {
                     err.textContent = "Please fill out all three fields and select a role";
-                    //err.style.color = "red";
                 } else if  (addr.slice(-12) !== "@buffalo.edu"){
                     err.textContent = "Email must be a buffalo.edu address";
                 } else if (pw !== cpw) {
@@ -113,30 +101,15 @@
                 } else if (pw = cpw && pw.length < 8) {
                     err.textContent = "Password needs to be at least 8 characters in length"
                 } else { // IN THE FUTURE - ADD CHECK FOR IF EMAIL ALREADY REGISTERED
-                    //console.log("Success");
                     err.textContent = "";
-                    //var phpCode = "<?php echo createConfirmCode();?>";
-                    //var phpadd= <?php echo creratConfirmCode(addr,pw);?>
-                    /*jQuery.ajax({ // changed from $.ajax
-                        url: "functions.php",
-                        //data: {email: addr, password: pw},
-                        data: {functionname: 'createConfirmCode', arugments: (addr, pw)},
-
-                        success: function(obj, textstatus) {
-                            if( !('error' in obj) ) {
-                                yourVariable = obj.result;
-                            }
-                            else {
-                                console.log(obj.error);
-                            }
-                        }
-                    })*/
-                    //console.log('le success');
                     const data = {addr, pw};
                     req = postReq('../php/confirm_code.php', data);
                     if (req[0] === true) {
                         document.location = 'accConfirmation.html'; // direct to confirmation page
+                    } else {
+                        console.log(req[1]); // return error
                     }
+                   //document.location = 'accConfirmation.html';
                 }
             }
         </script> 
