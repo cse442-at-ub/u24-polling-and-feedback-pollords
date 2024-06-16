@@ -71,3 +71,8 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
