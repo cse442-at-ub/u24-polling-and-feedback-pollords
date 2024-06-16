@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $result = loginPost($username, $password);
     if ($result) {
-        echo checkUser($username, $password);
+        #echo checkUser($username, $password);
         echo json_encode([
             'Method' => 'POST',
             'Path' => 'login',
