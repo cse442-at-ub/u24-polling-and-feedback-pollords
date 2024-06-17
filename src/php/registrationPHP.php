@@ -1,5 +1,4 @@
 <?php
-include 'functions.php';
 function registrationPost($username, $password) {
     if (empty($username) || empty($password)) {
         return false;
@@ -15,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $result = registrationPost($username, $password);
     if ($result) {
-        echo createConfirmCode($username, $password);
+        #echo createConfirmCode($username, $password);
         echo json_encode([
             'Method' => 'POST',
             'Path' => 'register',
