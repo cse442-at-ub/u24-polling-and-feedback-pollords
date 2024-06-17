@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="../css/accCreation.css"> <!-- recycling styles from registration page -->
+</head>
+
+<body>
+    <h1>Confirm Registration</h1>
+    <br /> <br /> <br />
+    <div class="reqContainer"><h2>Enter the 7-digit confirmation code that's been sent to your buffalo.edu email:</h2></div>
+
+    <div class="inputBox" style="margin-top: 35px">
+        <label>Confirmation Code:
+            <input type="password" id="confirmCode" name="confirmCode"/>
+        </label>
+    </div>
+
+    <br /> <br /> <br />
+
+    <center><span id="errMessage" class="errMsg"></span></center>
+    <center><button class="registerBtn" onclick="confirm()">Confirm</button></center>
+    <script>
+        function confirm () {
+            var err = document.getElementById("errMessage");
+            var code = document.getElementById("confirmCode").value;
+            if (code.length === 0) {
+                err.textContent = "Please enter a confirmation code"
+            }
+            else if (code.length !== 7) {
+                err.textContent = "Entered code was not 7 characters in length";
+            } else {
+                err.textContent = "";
+                console.log("redirect to landing") // need another conditional to check validity of code
+            }
+        }
+    </script>
+
+</body>
+</html>
