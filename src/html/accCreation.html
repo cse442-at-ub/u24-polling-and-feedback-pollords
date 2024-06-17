@@ -73,7 +73,7 @@
         <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
         <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
         <script>
-            async function postReq(url, data) {
+            /*async function postReq(url, data) {
                 const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -83,11 +83,14 @@
                 });
                 const result = await response.json();
                 document.getElementById('response').innerText = JSON.stringify(result, null, 2);
-            }
+            }*/
 
             function requestHandler(msg) {
                 if (msg === "Successful code confirmation") {
-                    alert("Request successful!");
+                    console.log("Request successful!");
+                } 
+                if (msg === "Incorrect password length") {
+                    console.log("Incorrect password length");
                 }
             }
             
@@ -108,14 +111,14 @@
                     err.textContent = "Password needs to be at least 8 characters in length"
                 } else { // IN THE FUTURE - ADD CHECK FOR IF EMAIL ALREADY REGISTERED
                     err.textContent = "";
-                    const data = {addr, pw};
+                    /*const data = {addr, pw};
                     req = postReq('../php/confirm_code.php', data);
                     if (req[0] === true) {
                         document.location = 'accConfirmation.html'; // direct to confirmation page
                     } else {
                         console.log(req[1]); // return error
-                    }
-                   //document.location = 'accConfirmation.html';
+                    }*/
+                   document.location = 'accConfirmation.html'; // this should be nested within condition of POST request success
                 }
             }
         </script> 
