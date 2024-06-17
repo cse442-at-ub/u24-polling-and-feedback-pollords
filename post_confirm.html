@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Confirmation Example</title>
+</head>
+<body>
+<h1>Post Confirmation Example</h1>
+<p>Open the console to run tests.</p>
+<div id="results"></div>
+<script>
+    function sendConfirmationCode(username, code, ) {
+        let payload = {
+            username: username,
+            code: code
+        };
+
+        fetch('confirm_code.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(data => {let resultMessage = `<p>Test $: Username = ${username}, Code = ${code}</p>`;
+                document.getElementById('results').innerHTML += resultMessage;
+
+                console.log(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>
+
+
+
