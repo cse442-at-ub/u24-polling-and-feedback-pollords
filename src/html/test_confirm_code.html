@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Confirm Code</title>
+    <script>
+        async function postRequest(url, data) {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+        }
+
+        function testValidCode() {
+            const data = { email: "student@buffalo.edu", code: "ABC123" };
+            postRequest('../php/confirm_code.php', data);
+        }
+
+        function testInvalidCode() {
+            const data = { email: "student@buffalo.edu", code: "WRONGCODE" };
+            postRequest('../php/confirm_code.php', data);
+        }
+
+        function testMissingCode() {
+            const data = { email: "", code: "" };
+            postRequest('../php/confirm_code.php', data);
+        }
+    </script>
+</head>
+<body>
+    <h1>Test Confirm Code</h1>
+    <button onclick="testValidCode()">Test Valid Code</button>
+    <button onclick="testInvalidCode()">Test Invalid Code</button>
+    <button onclick="testMissingCode()">Test Missing Code</button>
+    <pre id="response"></pre>
+</body>
+</html>
