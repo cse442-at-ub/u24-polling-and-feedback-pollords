@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="../css/accCreation.css">
+</head>
+
+<body>
+    <h1>Account Registration</h1>
+    <br />
+        <div class="inputBox">
+            <label>Email:
+                <input id="email" name="email"/>
+            </label>
+        </div>
+
+        <div class="inputBox">
+            <label>Password:
+                <input id="password" name="password" type="password" />
+                <p>*Password must be 8 characters or longer</p>
+            </label>
+        </div>
+
+        <div class="inputBox">
+            <label>Confirm Password:
+                <input id="confirmPassword" name="confirmPassword" type="password" />
+            </label>
+        </div>
+
+        <center><div class="accType">
+            <button class="dropdown" onclick="openCloseDropDown()" id="ddBtn"><span>Account Type</span><img src="../assets/dropdown.svg" width="17px" height="17px" id="ddImg" style="float: right"></button>
+            <ul class="ddList" id="ddList">
+                <li id="student" onclick="typeSelector('student')"></li>
+                <li id="instructor" onclick="typeSelector('')" style="margin-top: 8px"></li>
+            </ul>
+        </div></center>
+        <script>
+            function openCloseDropDown () {
+                stdnt = document.getElementById("student");
+                strctr = document.getElementById("instructor");
+                
+                if (stdnt.textContent === "") {
+                    stdnt.textContent = "Student";
+                    strctr.textContent = "Instructor";
+                    stdnt.style.display = "block";
+                    strctr.style.display = "block";
+                    document.getElementById("ddList").style.backgroundColor = "#F0F0F0";
+                } else {
+                    stdnt.textContent = "";
+                    strctr.textContent = "";
+                    stdnt.style.display = "none";
+                    strctr.style.display = "none";
+                    document.getElementById("ddList").style.backgroundColor = "#A5C7CE";
+                }
+            }
+
+            function typeSelector (type) {
+                var img = document.getElementById("ddImg");
+                if (type === 'student') {
+                    document.querySelector("#ddBtn span").innerText = "Student";
+                    document.querySelector("#ddBtn img").innerText = img;
+                    openCloseDropDown();
+                } else { 
+                    document.querySelector("#ddBtn span").innerText = "Instructor";
+                    document.querySelector("#ddBtn img").innerText = img;
+                    openCloseDropDown();
+                }
+            }
+        </script>
+
+        <br /> <br />
+        <center><span id="errMsg" class="errMsg"></span></center>
+        <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
+        <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
+        <script>
+            async function postReq(url, data) {
+                const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                });
+                const result = await response.json();
+                document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+            }
+
+            function requestHandler(msg) {
+                if (msg === "Successful confirmation code generated") {
+                    console.log("Request successful!");
+                } else if (msg === "Incorrect Password length") {
+                    console.log("Incorrect password length");
+                }
+            }
+            
+            function errDisplay () {
+                var addr = document.getElementById("email").value;
+                var pw = document.getElementById("password").value;
+                var cpw = document.getElementById("confirmPassword").value;
+                var err = document.getElementById("errMsg");
+                if (addr === "" || pw === "" || cpw === "") {
+                    err.textContent = "Please fill out all three fields and select a role";
+                } else if  (addr.slice(-12) !== "@buffalo.edu"){
+                    err.textContent = "Email must be a buffalo.edu address";
+                } else if (pw !== cpw) {
+                    err.textContent = "Passwords do not match";
+                } else if (document.querySelector("#ddBtn span").innerText == "Account Type") {
+                    err.textContent = "Please select an account type";
+                } else if (pw = cpw && pw.length < 8) {
+                    err.textContent = "Password needs to be at least 8 characters in length"
+                } else { // IN THE FUTURE - ADD CHECK FOR IF EMAIL ALREADY REGISTERED
+                    err.textContent = "";
+                    const data = {addr, pw};
+                    req = postReq('../php/confirm_code.php', data);
+                    if (req[0] === true) {
+                        document.location = 'accConfirmation.html'; // direct to confirmation page
+                    } else {
+                        console.log(req[1]); // return error
+                    }
+                   //document.location = 'accConfirmation.html';
+                }
+            }
+        </script> 
+
+</body>
+</html>
