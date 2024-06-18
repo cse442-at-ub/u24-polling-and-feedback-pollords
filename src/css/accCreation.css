@@ -1,0 +1,181 @@
+body {
+    background-color: #A5C7CE;
+}
+
+h1 {
+    text-align: center;
+    font-family: Arial;
+    font-size: 48px;
+}
+
+h2 {
+    text-align: left;
+    font-family: Arial;
+    font-size: 32px;
+}
+
+.reqContainer {
+    margin: auto;
+    width: 550px;
+}
+
+input {
+    display: block;
+    font-family: Arial;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 347px;
+    height: 32px;
+    font-size: 16px;
+    font-family: Arial;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+label:after {
+    content: "";
+}
+
+.inputBox {
+
+    /*position: absolute;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0; /* new stuff ends */
+
+    margin: auto;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    margin-top: 15px;
+    padding-right: 52px;
+    /*width: 25%; /* this is a problem for mobile */
+    width: 300px; /* fix */
+}
+
+.inputBox p {
+    font-size: 12px;
+    margin-top: 0;
+    font-style: normal;
+    font-weight: 600;
+    /*text-align: right;
+    margin-right: 25px;*/
+}
+
+
+.registerBtn {
+    display: block;
+    margin-top: 85px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 200px;
+    height: 48px;
+    background: white;
+}
+
+.registerBtn:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.dropdown {
+    text-align: left;
+    /* border-radius: 10px; */ /* out of whack with list if border radius implemented */
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    width: 137px;
+    height: 26px;
+}
+
+.ddOptions {
+    text-align: left;
+    border-radius: 10px; 
+    border: none; /* still ugly.. */
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    display: none;
+    width: 137px;
+    height: 26px;
+}
+
+.ddOptions:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.ddList {
+    /*border-radius: 10px;*/
+    border: none;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 96px;
+    height: 52px;
+    list-style-type: none;
+    /*background-color: #FFF;*/
+    margin-top: 0px;
+}
+
+.ddList li {
+    text-align: left;
+    margin-left: -33px;
+}
+
+.ddList li:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.dropdown:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+.ddTriangle { /* leaving out for now */
+    margin-top: 3px;
+}
+
+.accType {
+    /*position: relative;*/
+    position: absolute;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-top: 10px;
+}
+
+.options {
+    display: none;
+    position: absolute; /* new, probably won't do anything */
+}
+
+.options p:hover {
+    background-color: gray; /* placeholder */
+}
+
+.errMsg {
+    color: red; 
+    display: inline-block; 
+    position: absolute; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    left: 0;
+    right: 0; 
+    font-family: Arial; 
+    font-size: 16px;
+}
