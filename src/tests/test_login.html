@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login Response</title>
+    <script src="../js/index.js"></script>
+    <style>
+        .error-message {
+            display: none;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Login Response</h1>
+    <button onclick="testSuccessfulLogin()">Test Successful Login</button>
+    <button onclick="testInvalidCredentials()">Test Invalid Credentials</button>
+    <button onclick="testServerError()">Test Server Error</button>
+    <div class="error-message"></div>
+    <script>
+
+        // The following function is IDENTICAL to the one in index.js. I have redefined it
+        // here so that the href location works when running the test out of this folder.
+        function handleLoginResponse(response) {
+        if (response.status === 200) {
+            // Handle successful login
+            localStorage.setItem('authToken', response.token);
+            window.location.href = "../dashboard.html";
+        } else if (response.status === 401) {
+            // Handle invalid credentials
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.innerText = response.message;
+            errorMessage.style.display = 'block';
+        } else if (response.status === 500) {
+            // Handle server error
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.innerText = response.message;
+            errorMessage.style.display = 'block';
+        }
+        }
+
+        function testSuccessfulLogin() {
+            const response = {
+                status: 200,
+                message: "Login successful",
+                token: "some-jwt-token"
+            };
+            handleLoginResponse(response);
+        }
+
+        function testInvalidCredentials() {
+            const response = {
+                status: 401,
+                message: "Invalid credentials"
+            };
+            handleLoginResponse(response);
+            // Verify error message display
+            const errorMessage = document.querySelector('.error-message').innerText;
+            console.assert(errorMessage === 'Invalid credentials', 'Error message not displayed correctly');
+        }
+
+        function testServerError() {
+            const response = {
+                status: 500,
+                message: "Server error, please try again later"
+            };
+            handleLoginResponse(response);
+            // Verify error message display
+            const errorMessage = document.querySelector('.error-message').innerText;
+            console.assert(errorMessage === 'Server error, please try again later', 'Error message not displayed correctly');
+        }
+    </script>
+</body>
+</html>
