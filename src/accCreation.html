@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="css/accCreation.css">
+</head>
+
+<body>
+    <h1>Account Registration</h1>
+    <br />
+        <div class="inputBox">
+            <label>Email:
+                <input id="email" name="email"/>
+            </label>
+        </div>
+
+        <div class="inputBox">
+            <label>Password:
+                <input id="password" name="password" type="password" />
+                <p>*Password must be 8 characters or longer</p>
+            </label>
+        </div>
+
+        <div class="inputBox">
+            <label>Confirm Password:
+                <input id="confirmPassword" name="confirmPassword" type="password" />
+            </label>
+        </div>
+
+        <center><div class="accType">
+            <button class="dropdown" onclick="openCloseDropDown()" id="ddBtn"><span>Account Type</span><img src="assets/dropdown.svg" width="17px" height="17px" id="ddImg" style="float: right"></button>
+            <ul class="ddList" id="ddList">
+                <li id="student" onclick="typeSelector('student')"></li>
+                <li id="instructor" onclick="typeSelector('')" style="margin-top: 8px"></li>
+            </ul>
+        </div></center>
+
+
+        <br /> <br />
+        <center><span id="errMsg" class="errMsg"></span></center>
+        <center><button class="registerBtn" onclick="errDisplay()">Register</button></center> <!-- ONCLICK NEEDS TO DIRECT TO EITHER CONFIRM. OR RETURN ERR -->
+        <!-- ALSO - SUCCESSFUL REGISTRATION SENDS CODE TO EMAIL!!! -->
+
+    <script src="js/accCreation.js"></script>
+
+</body>
+</html>
