@@ -1,5 +1,6 @@
 
 function handleResponse(data){
+    console.log(data)
   if (data.success) {
     localStorage.setItem("userEmail", data.token);
 
