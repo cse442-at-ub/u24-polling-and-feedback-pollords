@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Valid Login</title>
+</head>
+<body>
+    <h2>Test Valid Login</h2>
+    <form id="validLoginForm" method="POST" action="http://localhost:8000/login-user.php">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="fortnite@buffalo.edu">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="fortnite">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('validLoginForm').onsubmit = function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('login-user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = JSON.stringify(data);
+            });
+        };
+    </script>
+</body>
+</html>

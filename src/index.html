@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="../oldSrc/css/loginUI.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
     <div class="container">
-        <h1>Enter the login and password for the associated account:</h1>
-        <form action="http://localhost:8000/loginPHP.php" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <button type="submit">Login</button>
-        </form>
-        <p onclick="toRegistration()">Need a new account? Click here to register</p>
+      <div class="row">
+        <section class="form sign-in">
+          <h2>Login</h2>
+          <p>Enter your account information below to login</p>
+            <div class="form-group">
+              <div class="form-control">
+                <label>email address</label>
+                <input type="email" name="email" id="emailLogin" autocomplete="username"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-control">
+                <label>password</label>
+                <input type="password" name="password" id="passwordLogin" autocomplete="new-password"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div id="errorLogin"></div>
+            </div>
+            <div class="form-group">
+              <button class="registerBtn" onclick="submitLogin()">Sign In</button>
+            </div>
+            <p id="linkReg" onclick="toRegistration()">Need a new account? Click here to register</p>
+
+        </section>
+      </div>
     </div>
-    <script>
-        function toRegistration() {
-            document.location = 'accCreation.html';
-        }
-    </script>
-</body>
+    <script src="https://kit.fontawesome.com/9e5ba2e3f5.js" crossorigin="anonymous"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>
