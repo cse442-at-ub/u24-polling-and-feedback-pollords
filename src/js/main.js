@@ -15,6 +15,9 @@ if (!localStorage.getItem("userEmail")) {
   const welcomeMessage = document.getElementById("welcomeMessage");
   welcomeMessage.innerHTML = `${user}`;
 
+  // Dummy for displaying account role
+  const instructor = "Instructor";
+
   // Add click event listener to the logout button
   const logoutButton = document.getElementById("logoutButton");
   logoutButton.addEventListener("click", () => {

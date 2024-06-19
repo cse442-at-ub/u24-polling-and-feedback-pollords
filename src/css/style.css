@@ -184,6 +184,12 @@ section {
   text-transform: capitalize;
 }
 
+#instructor {
+  font-size: 3rem;
+  color: var(--white-color);
+  text-transform: capitalize;
+}
+
 #logoutButton {
   margin-left: 1rem;
   outline: none;
