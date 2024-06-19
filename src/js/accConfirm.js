@@ -8,6 +8,6 @@ function handleResponse(data){
 
         window.location.href = `main.html?user=${data.token}`;
     } else {
-        document.getElementById("errMsg").textContent = data.message;
+        document.getElementById("errMessage").textContent = data.message;
     }
 }
