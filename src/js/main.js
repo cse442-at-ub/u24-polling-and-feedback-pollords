@@ -13,13 +13,13 @@ if (!localStorage.getItem("userEmail")) {
 
   // Display welcome message
   const welcomeMessage = document.getElementById("welcomeMessage");
-  welcomeMessage.innerHTML = `Welcome, ${user}!`;
+  welcomeMessage.innerHTML = `${user}`;
 
   // Add click event listener to the logout button
   const logoutButton = document.getElementById("logoutButton");
   logoutButton.addEventListener("click", () => {
     // Remove userEmail from localStorage and redirect to login page
     localStorage.removeItem("userEmail");
-    window.location.href = "index.html"; // Replace with your login page URL
+    window.location.href = "index.html";
   });
 }
