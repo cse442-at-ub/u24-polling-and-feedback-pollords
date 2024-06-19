@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Valid Registration</title>
+</head>
+<body>
+    <h2>Test Valid Registration</h2>
+    <form id="validRegistrationForm" method="POST" action="http://localhost:8000/registrationPHP.php">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="shunbita@buffalo.edu">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="ValidPassword123!">
+        <label for="instr">Instructor:</label>
+        <input type="text" id="instr" name="instr" value="validinstructor">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('validRegistrationForm').onsubmit = function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('http://localhost:8000/registrationPHP.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = JSON.stringify(data);
+            });
+        };
+    </script>
+</body>
+</html>
