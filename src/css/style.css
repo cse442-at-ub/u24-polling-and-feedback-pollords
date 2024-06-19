@@ -239,3 +239,11 @@ section {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+
+
+#errorLogin {
+  color: red;
+  font-family: Arial;
+  font-size: 16px;
+}
+
