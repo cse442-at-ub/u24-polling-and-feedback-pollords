@@ -188,6 +188,7 @@ section {
   font-size: 3rem;
   color: var(--white-color);
   text-transform: capitalize;
+  margin-right: auto;
 }
 
 #logoutButton {
@@ -244,6 +245,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+
 }
 
 
@@ -252,4 +254,11 @@ section {
   font-family: Arial;
   font-size: 16px;
 }
+
+#dashboard{
+  font-size: 3rem;
+  color: var(--white-color);
+}
+
+
 
