@@ -1,3 +1,4 @@
+
 function confirm () {
     var err = document.getElementById("errMessage");
     var code = document.getElementById("confirmCode").value;
@@ -38,7 +39,16 @@ async function postReq(code) {
     //document.location = 'accConfirmation.html'; // this should be nested within condition of POST request success
 }
 
-function handleResponse(data){
 
+function handleResponse(data){
+    console.log(data)
+    if (data.success) {
+
+        localStorage.setItem("userEmail", data.token);
+
+        window.location.href = `main.html?user=${data.token}`;
+    } else {
+        document.getElementById("errMessage").textContent = data.message;
+    }
 }
 
