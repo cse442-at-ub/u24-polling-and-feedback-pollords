@@ -221,3 +221,10 @@ section {
   background: white;
 }
 
+
+#errorLogin {
+  color: red;
+  font-family: Arial;
+  font-size: 16px;
+}
+
