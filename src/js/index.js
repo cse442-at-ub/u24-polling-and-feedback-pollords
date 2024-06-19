@@ -1,4 +1,5 @@
 
+
 // Function to handle login data submission
 async function submitLogin() {
 
@@ -50,4 +51,7 @@ function handleResponse(data){
 }
 
 
+function toRegistration() {
+  document.location = 'accCreation.html';
+}
 
