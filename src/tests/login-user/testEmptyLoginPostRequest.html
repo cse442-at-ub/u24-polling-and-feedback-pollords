@@ -18,7 +18,7 @@
         document.getElementById('emptyLoginForm').onsubmit = function(event) {
             event.preventDefault();
             const formData = new FormData(this);
-            fetch('http://localhost:8000/login-user.php', {
+            fetch('login-user.php', {
                 method: 'POST',
                 body: formData
             })
