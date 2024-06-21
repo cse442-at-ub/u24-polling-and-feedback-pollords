@@ -8,7 +8,7 @@
     <body>
         <div class="navbar">
             <img src="assets/Ellipse 1.svg" class="backIcon" onclick="backFunc()" width="40px" height="40px" />
-            <div class="cCreation">Course Creation</div> <!-- this should be further to the left... -->
+            <div class="cCreation">Course Creation</div>
         </div>
         <div class="pContainer"><p>Fill out the following information to create a course, then click submit when you're done.</p></div>
         <br /> <br /> <br />
@@ -37,7 +37,8 @@
             </label>
         </div>
 
-        <center><button class="submitBtn">Submit</button></center>
+        <center><span id="error" class="error"></span></center>
+        <center><button class="submitBtn" onclick="errorCatcher()">Submit</button></center>
 
         <script src="js/courseCreation.js"></script>
     </body>

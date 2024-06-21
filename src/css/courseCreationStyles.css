@@ -54,9 +54,10 @@ p {
 .cCreation {
     font-size: 3rem;
     color: #FFF;
-    /*margin-right: 1150px;*/
     margin-right: auto;
-    /*margin-left: 100px;*/
+    margin-top: auto; 
+    margin-bottom: auto;
+    margin-left: -1250px;
     font-family: Arial;
     /*font-family: "Open Sans", sans-serif;*/
 }
@@ -89,6 +90,20 @@ input {
     height: 32px;
     font-size: 16px;
     font-family: Arial;
+    text-indent: 5px;
+}
+
+.error {
+    color: red; 
+    display: inline-block; 
+    position: absolute; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    left: 0;
+    right: 0; 
+    font-family: Arial; 
+    font-size: 16px;
 }
 
 .submitBtn {
@@ -101,4 +116,9 @@ input {
     width: 200px;
     height: 48px;
     background: white;
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
 }
