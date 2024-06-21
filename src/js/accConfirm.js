@@ -43,10 +43,10 @@ async function postReq(code) {
 function handleResponse(data){
     console.log(data)
     if (data.success) {
+        localStorage.setItem("userEmail", data.email);
+        localStorage.setItem("instructor", data.instructor);
 
-        localStorage.setItem("userEmail", data.token);
-
-        window.location.href = `main.html?user=${data.token}`;
+        window.location.href = `main.html`;
     } else {
         document.getElementById("errMessage").textContent = data.message;
     }

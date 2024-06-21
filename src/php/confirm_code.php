@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
 session_start();
-
+include("tokenCreation.php");
 include_once "connection.php";
 include_once "createConfirmCode.php";
 
@@ -21,9 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $passed = false;
     $message = "";
+    $temp = 0;
 
     if($code == $codeIn){
-        $temp = 0;
+
         if($instr==="Instructor"){
             $temp=1;
         }
@@ -33,13 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             password_hash($password,
                 PASSWORD_BCRYPT);
         $query = "insert into userAccs (email,password,instructor) values ('$email','$hashed',$temp)";
+
         mysqli_query($conn, $query);
+        tokenCreate($email,$temp);
+
     } else {
         $message = "Error: Incorrect Code";
     }
 
 
-    echo json_encode(array("success"=>$passed,"message"=>$message,"token"=>$email));
+    echo json_encode(array("success"=>$passed,"message"=>$message,"email"=>$email,"instructor"=>$temp));
 
 
     // Close the database connection

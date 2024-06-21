@@ -40,9 +40,10 @@ async function submitLogin() {
 function handleResponse(data){
   console.log(data)
   if (data.success) {
-    localStorage.setItem("userEmail", data.token);
+    localStorage.setItem("userEmail", data.email);
+    localStorage.setItem("instructor", data.instructor);
 
-    window.location.href = `main.html?user=${data.token}`;
+    window.location.href = `main.html`;
   } else {
     const errorElement = document.getElementById(`errorLogin`);
     errorElement.innerHTML = data.message;

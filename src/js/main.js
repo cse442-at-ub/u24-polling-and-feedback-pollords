@@ -9,7 +9,7 @@ if (!localStorage.getItem("userEmail")) {
   window.location.href = "index.html"; // Redirect to login page
 } else {
   // Get firstName and lastName from URL parameters
-  const user = getUrlParameter("user");
+  const user = localStorage.getItem("userEmail")
 
   // Display welcome message
   const welcomeMessage = document.getElementById("welcomeMessage");
@@ -21,6 +21,8 @@ if (!localStorage.getItem("userEmail")) {
   logoutButton.addEventListener("click", () => {
     // Remove userEmail from localStorage and redirect to login page
     localStorage.removeItem("userEmail");
-    window.location.href = "index.html";
+    localStorage.removeItem("instructor");
+    //window.location.href = "index.html";
+    location.href = 'php/logOut.php';
   });
 }

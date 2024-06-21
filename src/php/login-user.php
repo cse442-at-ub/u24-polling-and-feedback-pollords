@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
 
-    list($passed,$message)=checkUser($email,$password);
+    list($passed,$message,$instr)=checkUser($email,$password);
 
-    echo json_encode(array("success"=>$passed,"message"=>$message, "token"=>$email));
+    echo json_encode(array("success"=>$passed,"message"=>$message, "email"=>$email, "instructor"=>$instr));
 
 
     // Close the database connection
