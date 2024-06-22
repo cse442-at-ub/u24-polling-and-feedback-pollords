@@ -41,3 +41,34 @@ if (!localStorage.getItem("userEmail")) {
   function participatePoll(courseId) {
     // Logic to participate in poll
   }
+
+
+async function checkLogin() {
+    fetch("php/checkLogin.php", {
+        method: "get",
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            //console.log(response)
+            //console.log(response.text())
+            let temp = response.json()
+            //console.log(temp)
+            return temp;
+        }).then((data) => {
+        let check = data.instructor;
+        console.log(check)
+        if(check==-1){
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("instructor");
+            location.href = 'php/logOut.php';
+        }
+        if(check==1){
+            location.href = 'main.html';
+        }
+    })
+        .catch((error) => {
+            console.error("Error sending data to the backend:", error);
+        });
+}
