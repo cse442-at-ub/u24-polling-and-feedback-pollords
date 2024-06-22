@@ -254,6 +254,21 @@ section {
   font-family: Arial;
   font-size: 16px;
 }
+#errorText{
+  padding: 5px;
+  color: red;
+  font-family: Arial;
+  font-size: 16px;
+}
+.temp .errorText{
+  width: fit-content;
+  padding: 5px;
+  color: red;
+  font-family: Arial;
+  font-size: 16px;
+  margin-left: auto;
+}
+
 
 #dashboard{
   font-size: 3rem;
@@ -282,6 +297,16 @@ section {
 
 /* Styling for the buttons inside the course box */
 .courseBox button {
+  margin-left: 10px;
+  font-size: 1.6rem; /* Adjust as needed */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+#courseCreation{
   margin-left: 10px;
   font-size: 1.6rem; /* Adjust as needed */
   padding: 0.5rem 1rem;
