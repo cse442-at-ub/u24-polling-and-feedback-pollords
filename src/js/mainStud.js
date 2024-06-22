@@ -14,9 +14,10 @@ if (!localStorage.getItem("userEmail")) {
           .then(response => response.json())
           .then(course => {
             const courseBox = document.createElement('div');
+            courseBox.className = 'courseBox';
             courseBox.innerHTML = `
-              <div class="courseBox">
-                <div class="courseTitle">${course.courseName}</div>
+              <div class="courseTitle">${course.courseName}</div>
+              <div>
                 <button onclick="provideFeedback(${courseId})">Feedback</button>
                 <button onclick="participatePoll(${courseId})">Poll</button>
               </div>`;
@@ -41,9 +42,9 @@ if (!localStorage.getItem("userEmail")) {
   function participatePoll(courseId) {
     // Logic to participate in poll
   }
-
-
-async function checkLogin() {
+  
+  
+  async function checkLogin() {
     fetch("php/checkLogin.php", {
         method: "get",
     })
@@ -71,4 +72,4 @@ async function checkLogin() {
         .catch((error) => {
             console.error("Error sending data to the backend:", error);
         });
-}
+  }
