@@ -6,7 +6,6 @@ function errorCatcher() {
     var name = document.getElementById("courseName").value;
     var code = document.getElementById("courseCode").value;
     var sem = document.getElementById("semester").value;
-    
     var instrs = document.getElementById("instructorEmails").value;
     var err = document.getElementById("error");
 
@@ -16,6 +15,10 @@ function errorCatcher() {
         err.textContent = "Please provide at least one instructor email for this course";
     } else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season Year\"";
+    } else if (code.split(" ").length !== 2 || codeChecker(code) === false) {
+        err.textContent = "Course code format should be \"CRS 101\"";
+    } else if (emailChecker(instrs) === false) {
+        err.textContent = "Provide buffalo.edu addresses separated by commas"
     } else {
         err.textContent = ""; // passing tests
         // POST request function call goes here
@@ -59,4 +62,31 @@ function semChecker(sem) {
     } else {
         return true;
     }
+}
+
+function codeChecker(code) {
+    var codeSplit = code.split(" ");
+    if (isNaN(parseInt(codeSplit[0])) === false) {
+        return false;
+    } else if (isNaN(parseInt(codeSplit[1])) === true) {
+        return false;
+    } else if (codeSplit[0].length !== 3 || codeSplit[1].length !== 3) {
+        return false;
+    } else {
+        return true; // passes tests
+    }
+}
+
+function emailChecker(instrs) {
+    instrsSplit = instrs.split(",");
+    var instances = instrs.match(/@/g).length
+    if (instances !== instrsSplit.length) {
+        return false;
+    }
+    for (let i = 0; i < instrsSplit.length; i++) {
+        if (instrsSplit[i].slice(-12) !== "@buffalo.edu") {
+            return false;
+        }
+    }
+    return true; // passes true
 }
