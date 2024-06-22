@@ -42,13 +42,13 @@ function handleResponse(data){
   if (data.success) {
     localStorage.setItem("userEmail", data.email);
     localStorage.setItem("instructor", data.instructor);
-    if(data.instructor==1){
+    localStorage.setItem("courses", data.courses);
+
+    if (data.instructor == 1) {
       window.location.href = `main.html`;
     } else {
       window.location.href = `mainStud.html`;
     }
-
-
   } else {
     const errorElement = document.getElementById(`errorLogin`);
     errorElement.innerHTML = data.message;
