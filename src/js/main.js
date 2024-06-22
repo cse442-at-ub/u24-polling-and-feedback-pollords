@@ -17,11 +17,13 @@ if (!localStorage.getItem("userEmail")) {
           courseBox.className = 'courseBox';
           courseBox.innerHTML = `
             <div class="courseTitle">${course.courseName}</div>
-            <div>
-              <button onclick="startFeedback(${courseId})">Feedback</button>
+            <div class="temp">
+              <button onclick="startFeedback(${courseId})" style="margin-left: auto">Feedback</button>
               <button onclick="createPoll(${courseId})">Poll</button>
+              <button onclick="uploadStudents(${courseId})">Upload Students File</button>
               <button onclick="addStudents(${courseId})">Add Students</button>
-              <div id="errorText" style="color: red;"></div>
+              <div class='errorText' id='errorText${courseId}' style="color: black;"></div>
+              <input id='studentsfile${courseId}' type="file" style="display: none" onchange='updateError(${courseId})'></input>
             </div>`;
           dashboard.appendChild(courseBox);
         });
@@ -36,7 +38,10 @@ if (!localStorage.getItem("userEmail")) {
     });
   });
 }
-
+function courseCreate(){
+    // Logic to start feedback mode
+    window.location.href = `courseCreation.html`;
+}
 function startFeedback(courseId) {
   // Logic to start feedback mode
   window.location.href = `feedback.html?courseId=${courseId}`;
@@ -47,12 +52,79 @@ function createPoll(courseId) {
   window.location.href = `poll.html?courseId=${courseId}`;
 }
 
-function addStudents(courseId) {
-  // Logic to add students
-  // This could involve opening a file upload dialog and handling the upload
-  // Here we just show an example error message for demonstration purposes
-  const errorText = document.getElementById('errorText');
-  errorText.innerText = 'An error occurred while adding students.';
+function updateError(courseId) {
+    const fileInput = document.getElementById("studentsfile"+courseId);
+    const file = fileInput.files[0]
+    const errorText = document.getElementById("errorText"+courseId);
+    errorText.style.color = "black";
+    errorText.innerText = "Uploaded: "+file.name;
+}
+
+function uploadStudents(courseId){
+    var input = document.getElementById("studentsfile"+courseId);
+    input.type = 'file';
+    input.click();
+}
+
+async function addStudents(courseId) {
+    const errorText = document.getElementById("errorText"+courseId);
+    if (!courseId) {
+        console.log('Please enter a Course ID.');
+        return;
+    }
+
+    //const file = input.files[0];
+    const fileInput = document.getElementById("studentsfile"+courseId);
+    const file = fileInput.files[0];
+
+    if (!file) {
+        errorText.style.color = "red";
+        errorText.innerText = 'Please upload a CSV file.';
+        console.log('Please select a CSV file.');
+        return;
+    }
+    if(file.size === 0){
+        console.log('Please select a CSV file that is not empty.');
+        errorText.style.color = "red";
+        errorText.innerText = 'Please select a CSV file that is not empty.';
+        return;
+    }
+
+    const text = await file.text();
+    const emails = text.split('\n').map(line => line.trim()).filter(line => line !== '');
+    const students = emails.join(',');
+
+    const formData = new FormData();
+    formData.append("id",courseId)
+    formData.append("students",students)
+
+
+    const response = await fetch('php/addStudents.php', {
+        method: 'POST',
+        body: formData
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        //console.log(response)
+        //console.log(response.text())
+        let temp = response.json()
+        //console.log(temp)
+        return temp;
+    })
+
+        .then((result) => {
+            if(result.success){
+                errorText.style.color = "green";
+                errorText.innerText = result.message;
+            } else {
+                errorText.style.color = "red";
+                errorText.innerText = result.message;
+            }
+        })
+        .catch((error) => {
+            console.error("Error sending data to the backend:", error);
+        });
 }
 
 async function checkLogin() {
