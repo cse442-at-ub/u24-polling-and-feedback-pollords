@@ -57,7 +57,8 @@ p {
     margin-right: auto;
     margin-top: auto; 
     margin-bottom: auto;
-    margin-left: -1250px;
+    /*margin-left: -1250px;*/
+    margin-left: -3%; /* cat fud-esque */
     font-family: Arial;
     /*font-family: "Open Sans", sans-serif;*/
 }
@@ -121,4 +122,10 @@ input {
 .submitBtn:hover {
     cursor: pointer;
     background-color: #C0C0C0;
+}
+
+ @media (max-width: 800px) {
+    /*.cCreation {
+        margin-left: 0px;
+    }*/
 }
