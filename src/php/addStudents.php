@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($result) {
             if ($result && mysqli_num_rows($result) > 0) {
                 if (empty($students)) {
-                    echo json_encode(array("success" => false, "message" => "Error: Don't leave inputs empty"));
+                    echo json_encode(array("success" => false, "message" => "Error: The uploaded file is empty"));
                 } else {
                     $format = preg_match('/^([\w\s]+@buffalo.edu,)*[\w\s]+@buffalo.edu$/', $students);
                     $newStudents = explode(',', $students);
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $course = mysqli_fetch_assoc($result);
                             $temp3 = $course['students'];
                             $writeBack = implode(",", $newStudentsID);
-                            $query = "update courses set students=replace(students,'$temp3','$writeBack') where id = '$courseID' limit 1";
+                            $query = "update courses set students='$writeBack' where id = '$courseID' limit 1";
                             mysqli_query($conn, $query);
 
 
