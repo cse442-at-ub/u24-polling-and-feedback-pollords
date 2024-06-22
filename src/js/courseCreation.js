@@ -23,6 +23,7 @@ function errorCatcher() {
         err.textContent = ""; // passing tests
         // POST request function call goes here
     }
+    coursePOST(name, code, sem, instrs, err);
 }
 
 function semChecker(sem) {
@@ -89,4 +90,13 @@ function emailChecker(instrs) {
         }
     }
     return true; // passes true
+}
+
+async function coursePOST(name, code, sem, instrs) {
+    const courseData = new FormData();
+    courseData.append("name", name);
+    courseData.append("code", code);
+    courseData.append("sem", sem);
+    courseData.append("instrs", instrs.split());
+    console.log(courseData);
 }
