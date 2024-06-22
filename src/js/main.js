@@ -3,7 +3,11 @@ if (!localStorage.getItem("userEmail")) {
 } else {
   checkLogin().then(()=>{
     const user = localStorage.getItem("userEmail");
-    const courses = localStorage.getItem("courses").split(',');
+    let courses = [];
+    if(localStorage.getItem("courses")!==""){
+        courses = localStorage.getItem("courses").split(',');
+    }
+
 
     const welcomeMessage = document.getElementById("welcomeMessage");
     welcomeMessage.innerHTML = `${user}`;

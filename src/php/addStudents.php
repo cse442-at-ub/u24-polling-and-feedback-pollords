@@ -27,49 +27,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo json_encode(array("success" => false, "message" => "Error: Don't leave inputs empty"));
                 } else {
                     $format = preg_match('/^([\w\s]+@buffalo.edu,)*[\w\s]+@buffalo.edu$/', $students);
-                    $formatEach = true;
                     $newStudents = explode(',', $students);
                     foreach ($newStudents as $curr) {
+
                         $temp = strpos($curr, "@buffalo.edu");
                         if ($temp === false) {
-                            $formatEach = false;
+                            echo json_encode(array("success" => false, "message" => "Error: Item \"".$curr."\" has improper format. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
+                            return;
                         }
                         if ($temp == 0 || strlen($curr) != $temp + 12) {
-                            $formatEach = false;
+                            echo json_encode(array("success" => false, "message" => "Error: Item \"".$curr."\" has improper format. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
+                            return;
+                        }
+                        $query = "select * from userAccs where email = '$curr' limit 1";
+                        $result = mysqli_query($conn, $query);
+                        if($result && mysqli_num_rows($result) == 0) {
+                            echo json_encode(array("success" => false, "message" => "Error: Item \"".$curr."\" does not exist"));
+                            return;
                         }
                     }
-                    if (!$format || !$formatEach) {
+                    if (!$format) {
                         echo json_encode(array("success" => false, "message" => "Error: Formatting of students is incorrect. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
                     } else {
                         $query = "select * from courses where id = '$courseID' limit 1";
                         $result = mysqli_query($conn, $query);
                         if ($result && mysqli_num_rows($result) > 0) {
-                            echo json_encode(array("success" => $format, "message" => $students));
-
                             $course = mysqli_fetch_assoc($result);
                             $temp = $course['students'];
                             $oldStuds = explode(',', $temp);
-                            foreach ($oldStuds as $curr) {
-                                //get student by their id
-                                $query = "select * from userAccs where id = '$curr' limit 1";
-                                $result = mysqli_query($conn, $query);
-                                $stud = mysqli_fetch_assoc($result);
+                            if($temp!=""){
+                                foreach ($oldStuds as $curr) {
+                                    //get student by their id
+                                    $query = "select * from userAccs where id = '$curr' limit 1";
+                                    $result = mysqli_query($conn, $query);
+                                    $stud = mysqli_fetch_assoc($result);
 
-                                //get their courses string and split it into an array
-                                $studCourses = $stud['courses'];
-                                $temp2 = explode(',', $studCourses);
+                                    //get their courses string and split it into an array
+                                    $studCourses = $stud['courses'];
+                                    $temp2 = explode(',', $studCourses);
 
-                                //look for the current course, and delete it
-                                $key = array_search($courseID, $temp2);
-                                unset($temp2[$key]);
+                                    //look for the current course, and delete it
+                                    $key = array_search($courseID, $temp2);
+                                    unset($temp2[$key]);
 
-                                //write back the string without the current course id
-                                $writeBack = implode(",", $temp2);
-                                if($writeBack==","){
-                                    $writeBack="";
+                                    //write back the string without the current course id
+                                    $writeBack = implode(",", $temp2);
+                                    if($writeBack==","){
+                                        $writeBack="";
+                                    }
+                                    $query = "update userAccs set courses=replace(courses,'$studCourses','$writeBack') where id = '$curr' limit 1";
+                                    mysqli_query($conn, $query);
                                 }
-                                $query = "update userAccs set courses=replace(courses,'$studCourses','$writeBack') where id = '$curr' limit 1";
-                                mysqli_query($conn, $query);
                             }
                             foreach ($newStudents as $curr) {
                                 //get the students by their email
@@ -101,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             mysqli_query($conn, $query);
 
 
-                            echo json_encode(array("success" => true, "message" => $writeBack));
+                            echo json_encode(array("success" => true, "message" => "Success: Students set to new list"));
 
                         } else {
                             echo json_encode(array("success" => false, "message" => "Error: Course does not exist, please create one"));
