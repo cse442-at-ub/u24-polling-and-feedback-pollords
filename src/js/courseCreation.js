@@ -142,6 +142,12 @@ async function coursePOST(name, code, sem, instrs, err) {
 
 function responder(data) {
     if (data.success) {
+        let temp = localStorage.getItem("courses");
+        if(temp==""){
+            localStorage.setItem("courses", ""+data.id);
+        } else {
+            localStorage.setItem("courses", temp+","+data.id);
+        }
         window.location.href = `main.html`;
     } else {
         document.getElementById("error").textContent = data.message;
