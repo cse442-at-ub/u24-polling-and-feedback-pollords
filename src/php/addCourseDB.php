@@ -53,6 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(array("success" => false, "message" => "Error: Instructors field must not be empty","id"=>-1));
             exit();
         }
+        if (count($instructorsArray) == 1 && $instructorsArray[0]=="") {
+            $conn->close();
+            echo json_encode(array("success" => false, "message" => "Error: Instructors field must not be empty","id"=>-1));
+            exit();
+        }
 
         if (!preg_match('/^(spring|summer|fall|winter),\d{4}$/', $term)) {
             $conn->close();
