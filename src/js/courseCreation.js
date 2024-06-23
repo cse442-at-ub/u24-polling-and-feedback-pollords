@@ -146,7 +146,7 @@ function responder(data) {
         if(temp==""){
             localStorage.setItem("courses", ""+data.id);
         } else {
-            localStorage.setItem("courses", temp+data.id);
+            localStorage.setItem("courses", temp+","+data.id);
         }
         window.location.href = `main.html`;
     } else {
