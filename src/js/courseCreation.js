@@ -13,8 +13,12 @@ function errorCatcher() {
         err.textContent = "Please fill out all four fields";
     } else if (instrs === "") {
         err.textContent = "Please provide at least one instructor email for this course";
-    } else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
+    } 
+    /*else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season Year\"";
+    }*/
+    else if (sem.split(",").length !== 2 || semChecker(sem) === false) {
+        err.textContent = "Semester format should be \"Season,Year\" (no spaces)";
     } else if (code.split(" ").length !== 2 || codeChecker(code) === false) {
         err.textContent = "Course code format should be \"CRS 101\"";
     } else if (emailChecker(instrs) === false) {
@@ -27,7 +31,8 @@ function errorCatcher() {
 }
 
 function semChecker(sem) {
-    var semSplit = sem.split(" ");
+    //var semSplit = sem.split(" ");
+    var semSplit = sem.split(",");
     var season = semSplit[0].toLowerCase();
     var year = semSplit[1];
     var truthOne;
@@ -79,7 +84,8 @@ function codeChecker(code) {
 }
 
 function emailChecker(instrs) {
-    instrsSplit = instrs.split(",");
+    return true;
+    /* instrsSplit = instrs.split(",");
     var instances = instrs.match(/@/g).length
     if (instances !== instrsSplit.length) {
         return false;
@@ -89,26 +95,27 @@ function emailChecker(instrs) {
             return false;
         }
     }
-    return true; // passes tests
+    return true; // passes tests*/
 }
 
 async function coursePOST(name, code, sem, instrs, err) {
-    if (err !== "") {
+    /*if (err !== "") {
         console.log(err);
         return;
-    }
+    }*/
 
     code = code.toUpperCase();
     sem = sem[0].toUpperCase() + sem.slice(1).toLowerCase();
     instrs = instrs.replace(/\s/g,'');
-    instrs = instrs.toLowerCase()
+    instrs = instrs.toLowerCase();
 
     const courseData = new FormData();
     courseData.append("name", name);
     courseData.append("code", code);
-    courseData.append("sem", sem);
-    courseData.append("instrs", instrs.split(","));
-    courseData.append("creator", localStorage.userEmail);
+    //courseData.append("sem", sem);
+    //courseData.append("instrs", instrs.split(","));
+    courseData.append("instrs", instrs);
+    //courseData.append("creator", localStorage.userEmail);
     
     fetch("php/addCourseDB.php", {
         method: "post",
