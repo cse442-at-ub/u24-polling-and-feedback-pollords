@@ -94,7 +94,10 @@ async function addStudents(courseId) {
         return;
     }
     if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
-        alert('Please submit a CSV file only.');
+        console.log('Please submit a CSV file only.');
+        errorText.style.color = "red";
+        errorText.innerText = 'Please submit a CSV file only.';
+        return;
         return;
     }
 
