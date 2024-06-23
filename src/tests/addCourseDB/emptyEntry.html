@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Empty Entry Test</title>
+    <title>Create Course</title>
 </head>
 <body>
-    <h1>Empty Entry Test</h1>
-    <form action="http://localhost:8000/addCourseDB.php" method="post">
-        <label for="courseName">Course Name:</label><br>
-        <input type="text" id="courseName" name="courseName" value=""><br>
-        
-        <label for="courseCode">Course Code:</label><br>
-        <input type="text" id="courseCode" name="courseCode" value=""><br>
-        
-        <label for="term">Term:</label><br>
-        <input type="text" id="term" name="term" value=""><br>
-        
-        <label for="instructors">Instructors (comma-separated emails):</label><br>
-        <textarea id="instructors" name="instructors[]" rows="4" cols="50"></textarea><br>
-        
-        <label for="students">Students (comma-separated IDs):</label><br>
-        <textarea id="students" name="students" rows="4" cols="50"></textarea><br>
-        
-        <input type="submit" value="Submit">
-    </form>
+<h1>Create a New Course</h1>
+<form action="../../php/addCourseDB.php" method="post" >
+    <label for="name">Course Name:</label><br>
+    <input type="text" id="name" name="name" value="" required><br>
+
+    <label for="code">Course Code:</label><br>
+    <input type="text" id="code" name="code" value="TC1" required><br>
+
+    <label for="sem">Term:</label><br>
+    <input type="text" id="sem" name="sem" value="summer,2028" required><br>
+
+    <label for="instrs">Instructors (comma-separated emails):</label><br>
+    <textarea id="instrs" name="instrs" rows="4" cols="50" required>testInstructor@buffalo.edu</textarea><br>
+
+    <label for="students">Students (comma-separated IDs):</label><br>
+    <textarea id="students" name="students" rows="4" cols="50"></textarea><br>
+
+    <input type="submit" value="Submit" formnovalidate>
+</form>
 </body>
 </html>
