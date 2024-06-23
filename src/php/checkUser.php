@@ -9,13 +9,13 @@ function checkUser($email, $pass): array
     //echo $pass;
     if(empty($email) || empty($pass))
     {
-        return array(false,"Error: Don't leave inputs empty",-1);
+        return array(false,"Error: Don't leave inputs empty",-1,-1);
     }
 
     $conn=$_SESSION['conn'];
 
     if(!isset($conn->server_info)){
-        return array(false,"Error: Login is currently down, please try again later",-1);
+        return array(false,"Error: Login is currently down, please try again later",-1,-1);
     }
 
     $query = "select * from userAccs where email = '$email' limit 1";
@@ -24,11 +24,11 @@ function checkUser($email, $pass): array
     $temp = strpos($email,"@buffalo.edu");
     if($temp === false){
         $_SESSION['conn']->close();
-        return array(false,"Error: Must be a valid buffalo.edu email",-1);
+        return array(false,"Error: Must be a valid buffalo.edu email",-1,-1);
     }
     if($temp == 0 || strlen($email)!=$temp+12){
         $_SESSION['conn']->close();
-        return array(false,"Error: Must be a valid buffalo.edu email",-1);
+        return array(false,"Error: Must be a valid buffalo.edu email",-1,-1);
     }
 
 
@@ -48,11 +48,11 @@ function checkUser($email, $pass): array
             else {
                 // Handle authentication error
                 $_SESSION['conn']->close();
-                return array(false,"Error: Information wrong or User does not exist",-1);
+                return array(false,"Error: Information wrong or User does not exist",-1,-1);
             }
         }
     }
     $_SESSION['conn']->close();
-    return array(false,"Error: Information wrong or User does not exist",-1);
+    return array(false,"Error: Information wrong or User does not exist",-1,-1);
 }
 

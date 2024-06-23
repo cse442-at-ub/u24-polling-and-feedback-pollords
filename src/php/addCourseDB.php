@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $query);
         if($result && mysqli_num_rows($result) == 0) {
             $conn->close();
-            echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again"));
+            echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again","id"=>-1));
         }
         if($result && mysqli_num_rows($result) > 0){
             $temp = mysqli_fetch_assoc($result);
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $temp2 = $temp['instructor'];
             if($temp2==0){
                 $conn->close();
-                echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again"));
+                echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again","id"=>-1));
                 return;
             }
         }
@@ -44,45 +44,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($courseName) || empty($courseCode) || empty($term) || empty($instructorsArray)) {
             $conn->close();
-            echo json_encode(array("success" => false, "message" => "Error: Do not leave inputs empty"));
+            echo json_encode(array("success" => false, "message" => "Error: Do not leave inputs empty","id"=>-1));
             exit();
         }
 
         if (!is_array($instructorsArray) || count($instructorsArray) == 0) {
             $conn->close();
-            echo json_encode(array("success" => false, "message" => "Error: Instructors field must not be empty"));
+            echo json_encode(array("success" => false, "message" => "Error: Instructors field must not be empty","id"=>-1));
             exit();
         }
 
         if (!preg_match('/^(spring|summer|fall|winter),\d{4}$/', $term)) {
             $conn->close();
-            echo json_encode(array("success" => false, "message" => "Error: The format of the term is incorrect, format should be: Season,Year (ex: Spring,2024)"));
+            echo json_encode(array("success" => false, "message" => "Error: The format of the term is incorrect, format should be: Season,Year (ex: Spring,2024)","id"=>-1));
             exit();
         }
         foreach ($instructorsArray as $curr) {
             $temp = strpos($curr, "@buffalo.edu");
             if ($temp === false) {
                 $conn->close();
-                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" has improper format. Make sure instructor emails are separated by commas, with each email ending in @buffalo.edu"));
+                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" has improper format. Make sure instructor emails are separated by commas, with each email ending in @buffalo.edu","id"=>-1));
                 return;
             }
             if ($temp == 0 || strlen($curr) != $temp + 12) {
                 $conn->close();
-                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" has improper format. Make sure instructor emails are separated by commas, with each email ending in @buffalo.edu"));
+                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" has improper format. Make sure instructor emails are separated by commas, with each email ending in @buffalo.edu","id"=>-1));
                 return;
             }
             $query = "select * from userAccs where email = '$curr' limit 1";
             $result = mysqli_query($conn, $query);
             if($result && mysqli_num_rows($result) == 0) {
                 $conn->close();
-                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" does not exist"));
+                echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" does not exist","id"=>-1));
                 return;
             }
             $temp = mysqli_fetch_assoc($result);
             $temp2 = $temp['instructor'];
             if($temp2==0) {
                 $conn->close();
-                echo json_encode(array("success" => false, "message" => "Error: \"".$curr."\" is not an instructor"));
+                echo json_encode(array("success" => false, "message" => "Error: \"".$curr."\" is not an instructor","id"=>-1));
                 return;
             }
         }
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $query);
         if($result && mysqli_num_rows($result) > 0) {
             $conn->close();
-            echo json_encode(array("success" => false, "message" => "Error: Course with same courseCode and term already exists"));
+            echo json_encode(array("success" => false, "message" => "Error: Course with same courseCode and term already exists","id"=>-1));
             return;
         }
 
@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //        $stmt->close();
 
         //add the course id to their courses list
-        echo json_encode(array("success" => true, "message" => "Success: Course successfully created"));
+        echo json_encode(array("success" => true, "message" => "Success: Course successfully created","id"=>$courseID));
 
         $conn->close();
     }
