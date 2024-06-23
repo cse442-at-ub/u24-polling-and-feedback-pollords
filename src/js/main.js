@@ -93,6 +93,10 @@ async function addStudents(courseId) {
         errorText.innerText = 'Please select a CSV file that is not empty.';
         return;
     }
+    if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+        alert('Please submit a CSV file only.');
+        return;
+    }
 
     const text = await file.text();
     const emails = text.split('\n').map(line => line.trim()).filter(line => line !== '');
