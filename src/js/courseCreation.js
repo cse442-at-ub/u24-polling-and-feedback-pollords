@@ -23,6 +23,7 @@ function errorCatcher() {
         err.textContent = ""; // passing tests
         // POST request function call goes here
     }
+    coursePOST(name, code, sem, instrs, err.textContent);
 }
 
 function semChecker(sem) {
@@ -88,5 +89,48 @@ function emailChecker(instrs) {
             return false;
         }
     }
-    return true; // passes true
+    return true; // passes tests
+}
+
+async function coursePOST(name, code, sem, instrs, err) {
+    if (err !== "") {
+        console.log(err);
+        return;
+    }
+
+    code = code.toUpperCase();
+    sem = sem[0].toUpperCase() + sem.slice(1).toLowerCase();
+    instrs = instrs.replace(/\s/g,'');
+    instrs = instrs.toLowerCase()
+
+    const courseData = new FormData();
+    courseData.append("name", name);
+    courseData.append("code", code);
+    courseData.append("sem", sem);
+    courseData.append("instrs", instrs.split(","));
+    courseData.append("creator", localStorage.userEmail);
+    
+    fetch("php/addCourseDB.php", {
+        method: "post",
+        body: courseData,
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        let temp = response.json()
+        return temp;
+    }).then((data) => {
+        responder(data);
+    })
+    .catch((error) => {
+        console.error("Error sending data to the backend:", error);
+    });
+}
+
+function responder(data) {
+    if (data.success) {
+        window.location.href = `main.html`;
+    } else {
+        document.getElementById("error").textContent = data.message;
+    }
 }
