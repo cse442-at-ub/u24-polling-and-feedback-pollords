@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+html {
+    font-size: 62.5%;
+    font-family: Arial;
+}
+
+body {
+    background-color: #A5C7CE;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.pContainer {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 520px;
+}
+
+.navbar {
+    padding: 5px;
+    position: relative;
+    height: fit-content;
+    width: 100vw;
+    background-color: #666666;
+    margin-bottom: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.backIcon {
+    margin-right: auto; 
+    margin-left: 2px; 
+    margin-top: auto; 
+    margin-bottom: auto;
+}
+
+.backIcon:hover {
+    cursor: pointer;
+}
+
+.cCreation {
+    font-size: 3rem;
+    color: #FFF;
+    margin-right: auto;
+    margin-top: auto; 
+    margin-bottom: auto;
+    /*margin-left: -1250px;*/
+    margin-left: -3%; /* cat fud-esque */
+    font-family: Arial;
+    /*font-family: "Open Sans", sans-serif;*/
+}
+
+.inputBoxRedux {
+    margin: auto;
+    margin-top: 15px;
+    /*padding-right: 52px;*/
+    width: 700px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+label:after {
+    content: "";
+}
+
+input {
+    display: block;
+    font-family: Arial;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 650px;
+    height: 32px;
+    font-size: 16px;
+    font-family: Arial;
+    text-indent: 5px;
+}
+
+.error {
+    color: red; 
+    display: inline-block; 
+    position: absolute; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    left: 0;
+    right: 0; 
+    font-family: Arial; 
+    font-size: 16px;
+}
+
+.submitBtn {
+    display: block;
+    margin-top: 85px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 200px;
+    height: 48px;
+    background: white;
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: #C0C0C0;
+}
+
+ @media (max-width: 800px) {
+    /*.cCreation {
+        margin-left: 0px;
+    }*/
+}

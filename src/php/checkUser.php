@@ -34,27 +34,25 @@ function checkUser($email, $pass): array
 
     if($result) {
         if ($result && mysqli_num_rows($result) > 0) {
-            $db_pass = mysqli_fetch_assoc($result)['password'];
+            $user = mysqli_fetch_assoc($result);
+            $db_pass = $user['password'];
 
             if (password_verify($pass, $db_pass)){
                 // Deal with successful login
-                $db_instr = mysqli_fetch_assoc(mysqli_query($conn, $query))['instructor'];
+                $db_instr = $user['instructor'];
+                $courses = $user['courses'];
                 tokenCreate($email,$db_instr);
                 $_SESSION['conn']->close();
-                return array(true,"Success: User Exists with same login and password",$db_instr);
+                return array(true,"Success: User Exists with same login and password",$db_instr, $courses);
             }
             else {
                 // Handle authentication error
                 $_SESSION['conn']->close();
                 return array(false,"Error: Information wrong or User does not exist",-1);
-
             }
         }
     }
     $_SESSION['conn']->close();
     return array(false,"Error: Information wrong or User does not exist",-1);
 }
-
-
-
 
