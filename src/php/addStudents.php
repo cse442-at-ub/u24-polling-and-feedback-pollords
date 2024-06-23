@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($result) {
             if ($result && mysqli_num_rows($result) > 0) {
                 if (empty($students)) {
+                    $conn->close();
                     echo json_encode(array("success" => false, "message" => "Error: The uploaded file is empty"));
                 } else {
                     $format = preg_match('/^([\w\s]+@buffalo.edu,)*[\w\s]+@buffalo.edu$/', $students);
@@ -32,10 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         $temp = strpos($curr, "@buffalo.edu");
                         if ($temp === false) {
+                            $conn->close();
                             echo json_encode(array("success" => false, "message" => "Error: Item \"".$curr."\" has improper format. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
                             return;
                         }
                         if ($temp == 0 || strlen($curr) != $temp + 12) {
+                            $conn->close();
                             echo json_encode(array("success" => false, "message" => "Error: Item \"".$curr."\" has improper format. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
                             return;
                         }
@@ -47,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
                     }
                     if (!$format) {
+                        $conn->close();
                         echo json_encode(array("success" => false, "message" => "Error: Formatting of students is incorrect. Make sure there is only 1 student per line, with each email ending in @buffalo.edu"));
                     } else {
                         $query = "select * from courses where id = '$courseID' limit 1";
@@ -108,22 +112,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $query = "update courses set students='$writeBack' where id = '$courseID' limit 1";
                             mysqli_query($conn, $query);
 
-
+                            $conn->close();
                             echo json_encode(array("success" => true, "message" => "Success: Students set to new list"));
 
                         } else {
+                            $conn->close();
                             echo json_encode(array("success" => false, "message" => "Error: Course does not exist, please create one"));
                         }
                     }
                 }
             }
             else{
+                $conn->close();
                 echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again"));
             }
         } else {
+            $conn->close();
             echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again"));
         }
     }
+
 
 
 }
