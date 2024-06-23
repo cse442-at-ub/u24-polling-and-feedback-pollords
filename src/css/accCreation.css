@@ -28,6 +28,7 @@ input {
     height: 32px;
     font-size: 16px;
     font-family: Arial;
+    text-indent: 5px;
 }
 
 label {
