@@ -26,8 +26,9 @@ function errorCatcher() {
     } else {
         err.textContent = ""; // passing tests
         // POST request function call goes here
+        coursePOST(name, code, sem, instrs, err.textContent); // moved
     }
-    coursePOST(name, code, sem, instrs, err.textContent);
+    //coursePOST(name, code, sem, instrs, err.textContent);
 }
 
 function semChecker(sem) {
@@ -112,7 +113,7 @@ async function coursePOST(name, code, sem, instrs, err) {
     const courseData = new FormData();
     courseData.append("name", name);
     courseData.append("code", code);
-    //courseData.append("sem", sem);
+    courseData.append("sem", sem);
     //courseData.append("instrs", instrs.split(","));
     courseData.append("instrs", instrs);
     //courseData.append("creator", localStorage.userEmail);
