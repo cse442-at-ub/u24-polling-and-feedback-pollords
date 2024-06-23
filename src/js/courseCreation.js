@@ -19,7 +19,8 @@ function errorCatcher() {
     } */
     else if (sem.split(",").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season,Year\" (no spaces)";
-    } else if (code.split(" ").length !== 2 || codeChecker(code) === false) {
+    } 
+    else if (/*code.split(" ").length !== 2 || */codeChecker(code) === false) {
         err.textContent = "Course code format should be \"CRS 101\"";
     } else if (emailChecker(instrs) === false) {
         err.textContent = "Provide buffalo.edu addresses separated by commas"
@@ -63,7 +64,8 @@ function semChecker(sem) {
         truthTwo = true;
     } */
     else {
-        truthTwo = false;
+        //truthTwo = false;
+        truthTwo = true;
     }
 
     if (truthOne === false || truthTwo === false) {
