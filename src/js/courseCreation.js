@@ -14,9 +14,9 @@ function errorCatcher() {
     } else if (instrs === "") {
         err.textContent = "Please provide at least one instructor email for this course";
     } 
-    /*else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
+    /* else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season Year\"";
-    }*/
+    } */
     else if (sem.split(",").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season,Year\" (no spaces)";
     } else if (code.split(" ").length !== 2 || codeChecker(code) === false) {
@@ -58,9 +58,11 @@ function semChecker(sem) {
 
     if (year.length !== 4) {
         truthTwo = false;
-    } else if (parseInt(year) >= 2024 && parseInt(year) < 2100) { // being conservative and assuming this app will be abandoned in the next 75 years
+    } 
+    /* else if (parseInt(year) >= 2024 && parseInt(year) < 2100) { // being conservative and assuming this app will be abandoned in the next 75 years
         truthTwo = true;
-    } else {
+    } */
+    else {
         truthTwo = false;
     }
 
@@ -72,7 +74,8 @@ function semChecker(sem) {
 }
 
 function codeChecker(code) {
-    var codeSplit = code.split(" ");
+    return true;
+    /*var codeSplit = code.split(" ");
     if (isNaN(parseInt(codeSplit[0])) === false) {
         return false;
     } else if (isNaN(parseInt(codeSplit[1])) === true) {
@@ -81,7 +84,7 @@ function codeChecker(code) {
         return false;
     } else {
         return true; // passes tests
-    }
+    }*/
 }
 
 function emailChecker(instrs) {
