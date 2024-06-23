@@ -17,7 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $newStudentsID = [];
 
+
     if(isset($conn->server_info)){
+        if(empty($courseID)){
+            $conn->close();
+            echo json_encode(array("success" => false, "message" => "Error: No course provided, try logging in again"));
+            return;
+        }
         $query = "select * from tokens where token = '$token' limit 1";
         $result = mysqli_query($conn, $query);
 

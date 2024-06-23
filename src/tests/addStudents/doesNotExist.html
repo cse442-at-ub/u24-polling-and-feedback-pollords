@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Course</title>
+</head>
+<body>
+<h1>Create a New Course</h1>
+<form action="../../php/addStudents.php" method="post" >
+    <label for="id">ID:</label><br>
+    <input type="text" id="id" name="id" value="2" required><br>
+
+    <label for="students">Students (comma-separated emails):</label><br>
+    <textarea id="students" name="students" rows="4" cols="50" required>dne@buffalo.edu</textarea><br>
+
+
+    <input type="submit" value="Submit" formnovalidate>
+</form>
+</body>
+</html>
