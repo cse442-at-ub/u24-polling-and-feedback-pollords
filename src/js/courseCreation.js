@@ -13,21 +13,28 @@ function errorCatcher() {
         err.textContent = "Please fill out all four fields";
     } else if (instrs === "") {
         err.textContent = "Please provide at least one instructor email for this course";
-    } else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
+    } 
+    /* else if (sem.split(" ").length !== 2 || semChecker(sem) === false) {
         err.textContent = "Semester format should be \"Season Year\"";
-    } else if (code.split(" ").length !== 2 || codeChecker(code) === false) {
+    } */
+    else if (sem.split(",").length !== 2 || semChecker(sem) === false) {
+        err.textContent = "Semester format should be \"Season,Year\" (no spaces)";
+    } 
+    else if (/*code.split(" ").length !== 2 || */codeChecker(code) === false) {
         err.textContent = "Course code format should be \"CRS 101\"";
     } else if (emailChecker(instrs) === false) {
         err.textContent = "Provide buffalo.edu addresses separated by commas"
     } else {
         err.textContent = ""; // passing tests
         // POST request function call goes here
+        coursePOST(name, code, sem, instrs, err.textContent); // moved
     }
-    coursePOST(name, code, sem, instrs, err.textContent);
+    //coursePOST(name, code, sem, instrs, err.textContent);
 }
 
 function semChecker(sem) {
-    var semSplit = sem.split(" ");
+    //var semSplit = sem.split(" ");
+    var semSplit = sem.split(",");
     var season = semSplit[0].toLowerCase();
     var year = semSplit[1];
     var truthOne;
@@ -52,10 +59,13 @@ function semChecker(sem) {
 
     if (year.length !== 4) {
         truthTwo = false;
-    } else if (parseInt(year) >= 2024 && parseInt(year) < 2100) { // being conservative and assuming this app will be abandoned in the next 75 years
+    } 
+    /* else if (parseInt(year) >= 2024 && parseInt(year) < 2100) { // being conservative and assuming this app will be abandoned in the next 75 years
         truthTwo = true;
-    } else {
-        truthTwo = false;
+    } */
+    else {
+        //truthTwo = false;
+        truthTwo = true;
     }
 
     if (truthOne === false || truthTwo === false) {
@@ -66,7 +76,8 @@ function semChecker(sem) {
 }
 
 function codeChecker(code) {
-    var codeSplit = code.split(" ");
+    return true;
+    /*var codeSplit = code.split(" ");
     if (isNaN(parseInt(codeSplit[0])) === false) {
         return false;
     } else if (isNaN(parseInt(codeSplit[1])) === true) {
@@ -75,11 +86,12 @@ function codeChecker(code) {
         return false;
     } else {
         return true; // passes tests
-    }
+    }*/
 }
 
 function emailChecker(instrs) {
-    instrsSplit = instrs.split(",");
+    return true;
+    /* instrsSplit = instrs.split(",");
     var instances = instrs.match(/@/g).length
     if (instances !== instrsSplit.length) {
         return false;
@@ -89,26 +101,27 @@ function emailChecker(instrs) {
             return false;
         }
     }
-    return true; // passes tests
+    return true; // passes tests*/
 }
 
 async function coursePOST(name, code, sem, instrs, err) {
-    if (err !== "") {
+    /*if (err !== "") {
         console.log(err);
         return;
-    }
+    }*/
 
     code = code.toUpperCase();
     sem = sem[0].toUpperCase() + sem.slice(1).toLowerCase();
     instrs = instrs.replace(/\s/g,'');
-    instrs = instrs.toLowerCase()
+    instrs = instrs.toLowerCase();
 
     const courseData = new FormData();
     courseData.append("name", name);
     courseData.append("code", code);
     courseData.append("sem", sem);
-    courseData.append("instrs", instrs.split(","));
-    courseData.append("creator", localStorage.userEmail);
+    //courseData.append("instrs", instrs.split(","));
+    courseData.append("instrs", instrs);
+    //courseData.append("creator", localStorage.userEmail);
     
     fetch("php/addCourseDB.php", {
         method: "post",
@@ -129,6 +142,12 @@ async function coursePOST(name, code, sem, instrs, err) {
 
 function responder(data) {
     if (data.success) {
+        let temp = localStorage.getItem("courses");
+        if(temp==""){
+            localStorage.setItem("courses", ""+data.id);
+        } else {
+            localStorage.setItem("courses", temp+data.id);
+        }
         window.location.href = `main.html`;
     } else {
         document.getElementById("error").textContent = data.message;

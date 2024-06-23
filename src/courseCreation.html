@@ -26,16 +26,21 @@
         </div>
 
         <div class="inputBoxRedux">
-            <label>Semester:
+            <label>Semester (ex: Spring,2025):
                 <input id="semester" name="semester"/>
             </label>
         </div>
 
         <div class="inputBoxRedux">
             <label>Instructor Emails (ex: mhertz@buffalo.edu, eblanton@buffalo.edu):
-                <input id="instructorEmails" name="instructorEmails"/>
+                <input id="instructorEmails" name="instructorEmails" onload="userGet()"/>
             </label>
         </div>
+        <script>
+            function userGet() {
+                return localStorage.userEmail;
+            }
+        </script>
 
         <center><span id="error" class="error"></span></center>
         <center><button class="submitBtn" onclick="errorCatcher()">Submit</button></center>
