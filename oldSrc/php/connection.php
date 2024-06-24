@@ -1,6 +1,5 @@
 <?php
 
-
 $servername = "oceanus.cse.buffalo.edu:3306";
 $username = "jacobzal";
 $password = "50346440";

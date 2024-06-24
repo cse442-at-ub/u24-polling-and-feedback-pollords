@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 session_start();
 
 include_once "connection.php";
-include_once "createConfirmCode.php";
+include_once "checkUser.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -15,24 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare the data for inserting into the database (you should sanitize the data to prevent SQL injection)
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $instr = mysqli_real_escape_string($conn, $_POST['instr']);
 
 
+    list($passed,$message,$instr,$courses)=checkUser($email,$password);
 
-
-
-    list($passed,$message,$code)=createConfirmCode($email,$password);
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $password;
-    $_SESSION['code'] = $code;
-    $_SESSION['instructor'] = $instr;
-	if($code!=-1){
-		mail($email,"Account Confirmation Code",$code);
-	}
-    
-
-    echo json_encode(array("success"=>$passed,"message"=>$message));
-
+    echo json_encode(array("success"=>$passed,"message"=>$message, "email"=>$email, "instructor"=>$instr, "courses"=>$courses));
 
     // Close the database connection
     if(isset($conn->server_info)){

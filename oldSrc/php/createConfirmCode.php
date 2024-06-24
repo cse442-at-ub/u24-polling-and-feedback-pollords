@@ -1,8 +1,7 @@
 <?php
 
 include("connection.php");
-function createConfirmCode($email,$pass): array
-{
+function createConfirmCode($email,$pass){
 
     if(empty($email) || empty($pass))
     {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Course</title>
+</head>
+<body>
+<h1>Create a New Course</h1>
+<form action="../../php/addCourseDB.php" method="post" >
+    <label for="name">Course Name:</label><br>
+    <input type="text" id="name" name="name" value="Test Course 1" required><br>
+
+    <label for="code">Course Code:</label><br>
+    <input type="text" id="code" name="code" value="TC1" required><br>
+
+    <label for="sem">Term:</label><br>
+    <input type="text" id="sem" name="sem" value="" required><br>
+
+    <label for="instrs">Instructors (comma-separated emails):</label><br>
+    <textarea id="instrs" name="instrs" rows="4" cols="50" required>testInstructor@buffalo.edu</textarea><br>
+
+    <label for="students">Students (comma-separated IDs):</label><br>
+    <textarea id="students" name="students" rows="4" cols="50"></textarea><br>
+
+    <input type="submit" value="Submit" formnovalidate>
+</form>
+</body>
+</html>
