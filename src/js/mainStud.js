@@ -40,6 +40,7 @@ if (!localStorage.getItem("userEmail")) {
   
   function provideFeedback(courseId) {
     // Logic to provide feedback
+      window.location.href = `studentFBUI.html?courseId=${courseId}`;
   }
   
   function participatePoll(courseId) {
