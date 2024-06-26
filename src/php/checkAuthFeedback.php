@@ -1,4 +1,7 @@
 <?php
+//ob_end_clean();
+//ob_start();
+
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
@@ -21,10 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $query->get_result();
         if($result) {
             if ($result && mysqli_num_rows($result) == 0) {
+                $conn->close();
+                //header("Location: ../index.html");
+                //exit;
                 echo json_encode(array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0));
                 return;
             } else {
-
                 $query = $conn->prepare("select * from courses where id = ? limit 1");
                 $query->bind_param("i", $courseID);
                 $query->execute();
@@ -33,12 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($result && mysqli_num_rows($result) == 0) {
                         $conn->close();
                         if($instr==0){
-                            header("Location:mainStud.html");
+                            echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
+                            return;
+                            //header("Location: ../mainStud.html", true,  301);
+                            //exit;
                         } else {
-                            header("Location:main.html");
+                            echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
+                            return;
+                            //header("Location: ../main.html", true,  301);
+                            //exit;
+
                         }
-                        echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
-                        return;
+
                     } else {
                         $temp = "";
                         if($instr==0){
@@ -49,12 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if($temp==""){
                             $conn->close();
                             if($instr==0){
-                                header("Location:mainStud.html");
+                                echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                                return;
+                                //header("Location: ../mainStud.html", true,  301);
+                                //exit;
                             } else {
-                                header("Location:main.html");
+                                echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                                return;
+                                //header("Location: ../main.html", true,  301);
+                                //exit;
                             }
-                            echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
-                            return;
+                            //echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                            //return;
                         }
                         $members = explode(',', $temp);
                         $isMember = false;
@@ -66,12 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if(!$isMember){
                             $conn->close();
                             if($instr==0){
-                                header("Location:mainStud.html");
+                                echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                                return;
+                                //header("Location: ../mainStud.html", true,  301);
+                                //exit;
                             } else {
-                                header("Location:main.html");
+                                echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                                return;
+                                //header("Location: ../main.html", true,  301);
+                                //exit;
                             }
-                            echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
-                            return;
+                            //echo json_encode(array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0));
+                            //return;
                         }
                         $query = $conn->prepare("select * from courses where id = ? limit 1");
                         $query->bind_param("i", $courseID);
@@ -86,23 +109,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $conn->close();
                     if($instr==0){
-                        header("Location:mainStud.html");
+                        echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
+                        return;
+                        //header("Location: ../mainStud.html", true,  301);
+                        //exit;
                     } else {
-                        header("Location:main.html");
+                        echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
+                        return;
+                        //header("Location: ../main.html", true,  301);
+                        //exit;
                     }
-                    echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
-                    return;
+                    //echo json_encode(array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0));
+                    //return;
                 }
             }
         } else {
             $conn->close();
-            header("Location:index.html");
+            //header("Location: ../index.html", true,  301);
+            //exit;
             echo json_encode(array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0));
             return;
+
         }
     } else {
         $conn->close();
-        header("Location:index.html");
+        //header("Location: ../index.html", true,  301);
+        //exit;
         echo json_encode(array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0));
         return;
     }
