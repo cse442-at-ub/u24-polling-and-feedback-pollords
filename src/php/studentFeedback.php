@@ -11,18 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $courseID = mysqli_real_escape_string($conn,$_POST['courseID']);
     $studentID = mysqli_real_escape_string($conn,$_POST['studentID']);
     $response = mysqli_real_escape_string($conn,$_POST['response']);
-    $timeUpdated = mysqli_real_escape_string($conn,$_POST['timeUpdated']);
+    //$timeUpdated = mysqli_real_escape_string($conn,$_POST['timeUpdated']);
 
     if(isset($conn->server_info)) {
-        if (empty($courseId) || empty($studentId) || empty($response) || empty($timeUpdated)) {
+        if (empty($courseId) || empty($studentId) || empty($response)) {
             $conn->close();
             echo json_encode(array("success" => false, "message" => "Error: Unable to collect required data","id"=>-1));
             exit();
         }
 
-        $query = "insert into feedbackAnswers (courseID, studentID, term, response, timeUpdated) values ('$courseID', '$studentID', '$response', '$timeUpdated')";
+        // replace below with prepared statement
+        $query = "insert into feedbackAnswers (courseID, studentID, response) values ('$courseID', '$studentID', '$response')";
         mysqli_query($conn, $query);
-        echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$studentID));
+        echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$studentID)); // I am a titan of PHP
         $conn->close();
     }
 }
