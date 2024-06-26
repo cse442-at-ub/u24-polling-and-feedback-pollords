@@ -1,6 +1,7 @@
-async function feedbackPOST(args) {
+async function feedbackPOST(crsID, resp) {
     const feedbackData = new FormData();
-    feedbackData.append("arg1", arg1); // variables, get from args
+    feedbackData.append("courseID", crsID);
+    feedbackData.append("response", resp);
     
     fetch("php/addFeedback.php", {
         method: "post",
