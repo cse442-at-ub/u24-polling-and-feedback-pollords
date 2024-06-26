@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn=$_SESSION['conn'];
 
     $courseID = mysqli_real_escape_string($conn,$_POST['courseID']);
-    $studentID = mysqli_real_escape_string($conn,$_POST['studentID']);
+    //$studentID = mysqli_real_escape_string($conn,$_POST['studentID']);
+    $studentID = $_SESSION['userID'];
     $response = mysqli_real_escape_string($conn,$_POST['response']);
     //$timeUpdated = mysqli_real_escape_string($conn,$_POST['timeUpdated']);
 
