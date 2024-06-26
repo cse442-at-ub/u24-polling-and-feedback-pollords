@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Instructor Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback</title>
+    <link rel="stylesheet" href="css/studentFBUI.css">
+    <script defer src="studentFB.js"></script>
 </head>
-
 <body>
-<div id="landing">
-    <div id="navBar">
-        <div id="instructor">Feedback</div>
-    </div>
-    <div id="dashboard">
 
-    </div>
+<div class="header">
+    <div class="back-arrow">&#8592;</div>
+    <h1>Feedback</h1>
 </div>
-<script src="js/InstructorFBUI.js"></script>
-</body>
 
+<div class="feedback-container">
+    <p>Class: CSE 442 Software Engineering Concepts</p>
+    <p>Please enter your feedback for how comfortable you are with the pace of the class. Answer using a number from 1 to 5, with:</p>
+    <p>1 - "I'm Lost"</p>
+    <p>3 - "Just right"</p>
+    <p>5 - "This is easy"</p>
+    <p>Feedback Level</p>
+    <div class="dropdown-container">
+        <select id="feedback-level">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <button id="submit-btn">Submit</button>
+</div>
+
+</body>
 </html>
