@@ -18,8 +18,13 @@ function checkUser($email, $pass): array
         return array(false,"Error: Login is currently down, please try again later",-1,-1);
     }
 
-    $query = "select * from userAccs where email = '$email' limit 1";
-    $result = mysqli_query($conn, $query);
+    $query = $conn->prepare("select * from userAccs where email = ? limit 1");
+    $query->bind_param("s", $email);
+    $query->execute();
+    $result = $query->get_result();
+
+    //$query = "select * from userAccs where email = '$email' limit 1";
+    //$result = mysqli_query($conn, $query);
 
     $temp = strpos($email,"@buffalo.edu");
     if($temp === false){

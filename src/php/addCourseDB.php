@@ -8,20 +8,25 @@ include 'connection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn=$_SESSION['conn'];
 
-    $courseName = mysqli_real_escape_string($conn,$_POST['name']);
-    $courseCodeIn = mysqli_real_escape_string($conn,$_POST['code']);
+    $courseName = $_POST['name'];
+    $courseCodeIn = $_POST['code'];
     $courseCode = str_replace(' ', '', $courseCodeIn);
-    $termIn = mysqli_real_escape_string($conn,$_POST['sem']);
+    $termIn = $_POST['sem'];
     $term = str_replace(' ', '', strtolower($termIn));
-    $instructorsArray = explode(',', mysqli_real_escape_string($conn,$_POST['instrs']));  // This will be an array of strings
+    $instructorsArray = explode(',', $_POST['instrs']);  // This will be an array of strings
     $students = "";
     $token = $_SESSION['token'];
 
     $newInstrID = [];
 
     if(isset($conn->server_info)){
-        $query = "select * from tokens where token = '$token' limit 1";
-        $result = mysqli_query($conn, $query);
+        $query = $conn->prepare("select * from tokens where token = ? limit 1");
+        $query->bind_param("s", $token);
+        $query->execute();
+        $result = $query->get_result();
+
+        //$query = "select * from tokens where token = '$token' limit 1";
+        //$result = mysqli_query($conn, $query);
         if($result && mysqli_num_rows($result) == 0) {
             $conn->close();
             echo json_encode(array("success" => false, "message" => "Error: Not Authorized, try logging in again","id"=>-1));
@@ -29,8 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($result && mysqli_num_rows($result) > 0){
             $temp = mysqli_fetch_assoc($result);
             $email = $temp['email'];
-            $query = "select * from userAccs where email = '$email' limit 1";
-            $result = mysqli_query($conn, $query);
+
+            $query = $conn->prepare("select * from userAccs where email = ? limit 1");
+            $query->bind_param("s", $email);
+            $query->execute();
+            $result = $query->get_result();
+            //$query = "select * from userAccs where email = '$email' limit 1";
+            //$result = mysqli_query($conn, $query);
             $temp = mysqli_fetch_assoc($result);
             $temp2 = $temp['instructor'];
             if($temp2==0){
@@ -76,8 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" has improper format. Make sure instructor emails are separated by commas, with each email ending in @buffalo.edu","id"=>-1));
                 return;
             }
-            $query = "select * from userAccs where email = '$curr' limit 1";
-            $result = mysqli_query($conn, $query);
+            $query = $conn->prepare("select * from userAccs where email = ? limit 1");
+            $query->bind_param("s", $curr);
+            $query->execute();
+            $result = $query->get_result();
+            //$query = "select * from userAccs where email = '$curr' limit 1";
+            //$result = mysqli_query($conn, $query);
             if($result && mysqli_num_rows($result) == 0) {
                 $conn->close();
                 echo json_encode(array("success" => false, "message" => "Error: Instructor \"".$curr."\" does not exist","id"=>-1));
@@ -101,8 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //                exit();
 //            }
 //        }
-        $query = "select * from courses where term = '$term' and courseCode = '$courseCode' limit 1";
-        $result = mysqli_query($conn, $query);
+        $query = $conn->prepare("select * from courses where term = ? and courseCode = ? limit 1");
+        $query->bind_param("ss", $term,$courseCode);
+        $query->execute();
+        $result = $query->get_result();
+        //$query = "select * from courses where term = '$term' and courseCode = '$courseCode' limit 1";
+        //$result = mysqli_query($conn, $query);
         if($result && mysqli_num_rows($result) > 0) {
             $conn->close();
             echo json_encode(array("success" => false, "message" => "Error: Course with same courseCode and term already exists","id"=>-1));
@@ -113,8 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         foreach ($instructorsArray as $curr) {
             //get the instructor by their email
-            $query = "select * from userAccs where email = '$curr' limit 1";
-            $result = mysqli_query($conn, $query);
+            $query = $conn->prepare("select * from userAccs where email = ? limit 1");
+            $query->bind_param("s", $curr);
+            $query->execute();
+            $result = $query->get_result();
+            //$query = "select * from userAccs where email = '$curr' limit 1";
+            //$result = mysqli_query($conn, $query);
             $temp = mysqli_fetch_assoc($result);
 
             //add their id to the course list
@@ -123,17 +145,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
         $writeBack = implode(",", $newInstrID);
-        $query = "insert into courses (courseName, courseCode, term, instructors, students) values ('$courseName', '$courseCode', '$term', '$writeBack', '$students')";
-        mysqli_query($conn, $query);
-        $query = "select * from courses where term = '$term' and courseCode = '$courseCode' limit 1";
-        $result = mysqli_query($conn, $query);
+
+        $query = $conn->prepare("insert into courses (courseName, courseCode, term, instructors, students) values (?, ?, ?, ?, ?)");
+        $query->bind_param("sssss", $courseName, $courseCode, $term, $writeBack, $students);
+        $query->execute();
+        //$query = "insert into courses (courseName, courseCode, term, instructors, students) values ('$courseName', '$courseCode', '$term', '$writeBack', '$students')";
+        //mysqli_query($conn, $query);
+
+        $query = $conn->prepare("select * from courses where term = ? and courseCode = ? limit 1");
+        $query->bind_param("ss", $term,$courseCode);
+        $query->execute();
+        $result = $query->get_result();
+        //$query = "select * from courses where term = '$term' and courseCode = '$courseCode' limit 1";
+        //$result = mysqli_query($conn, $query);
         $temp3 = mysqli_fetch_assoc($result);
         $courseID = $temp3['id'];
 
         foreach ($newInstrID as $curr) {
             //get the instructor by their email
-            $query = "select * from userAccs where id = '$curr' limit 1";
-            $result = mysqli_query($conn, $query);
+            $query = $conn->prepare("select * from userAccs where id = ? limit 1");
+            $query->bind_param("s", $curr);
+            $query->execute();
+            $result = $query->get_result();
+
+            //$query = "select * from userAccs where id = '$curr' limit 1";
+            //$result = mysqli_query($conn, $query);
             $temp = mysqli_fetch_assoc($result);
 
             $tempCourses = $temp['courses'];
@@ -143,8 +179,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if($tempCourses==""){
                 $writeBack=$courseID;
             }
-            $query = "update userAccs set courses='$writeBack' where id = '$curr' limit 1";
-            mysqli_query($conn, $query);
+            $query = $conn->prepare("update userAccs set courses = ? where id = ? limit 1");
+            $query->bind_param("ss", $writeBack,$curr);
+            $query->execute();
+            //$query = "update userAccs set courses='$writeBack' where id = '$curr' limit 1";
+            //mysqli_query($conn, $query);
 
         }
 
