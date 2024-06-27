@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         event.preventDefault();
         const feedbackLevel = document.getElementById('feedback-level').value;
         alert(`Feedback submitted: ${feedbackLevel}`);
-        // Add your form submission logic here (e.g., sending data to the server)
+        // Add form submission logic 
     }
 
     const submitButton = document.getElementById('submit-btn');
