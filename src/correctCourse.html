@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correct Course Test</title>
-</head>
-<body>
-    <h1>Correct Course Test</h1>
-    <button onclick="submitFeedback()">Submit</button>
-    <div id="response"></div>
     <script>
-        function submitFeedback() {
-            fetch('php/getFeedbackResults.php', {
+        async function submitCorrectCourse() {
+            const response = await fetch('php/checkAuthFeedback.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ courseId: 1, email: 'instructorFeedback@buffalo.edu' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('response').innerText = `${data.success}, ${data.averageResponse}`;
+                body: JSON.stringify({
+                    courseID: 23 // Assuming 23 is the ID of the correct course
+                }),
             });
+            const result = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(result);
         }
     </script>
+</head>
+<body>
+    <h1>Test Correct Course</h1>
+    <button onclick="submitCorrectCourse()">Submit</button>
+    <div id="response"></div>
 </body>
 </html>

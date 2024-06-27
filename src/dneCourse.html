@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DNE Course Test</title>
-</head>
-<body>
-    <h1>DNE Course Test</h1>
-    <button onclick="submitFeedback()">Submit</button>
-    <div id="response"></div>
     <script>
-        function submitFeedback() {
-            fetch('php/getFeedbackResults.php', {
+        async function submitDneCourse() {
+            const response = await fetch('php/checkAuthFeedback.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ courseId: 999, email: 'instructorFeedback@buffalo.edu' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('response').innerText = `${data.success}, ${data.averageResponse}`;
+                body: JSON.stringify({
+                    courseID: 99 // Assuming 99 is an ID of a non-existent course
+                }),
             });
+            const result = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(result);
         }
     </script>
+</head>
+<body>
+    <h1>Test DNE Course</h1>
+    <button onclick="submitDneCourse()">Submit</button>
+    <div id="response"></div>
 </body>
 </html>
