@@ -22,8 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // replace below with prepared statement
-        $query = "insert into feedbackAnswers (courseID, studentID, response) values ('$courseID', '$studentID', '$response')";
-        mysqli_query($conn, $query);
+        //$query = "insert into feedbackAnswers (courseID, studentID, response) values ('$courseID', '$studentID', '$response')";
+        //mysqli_query($conn, $query);
+        $preppedQuery = conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value ('$courseID', '$studentID', '$response')");
+        mysqli_query($conne, $preppedQuery);
         echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$studentID)); // I am a titan of PHP
         $conn->close();
     }
