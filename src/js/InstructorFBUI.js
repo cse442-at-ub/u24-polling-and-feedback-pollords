@@ -93,13 +93,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function handleOpenFeedback(event) {
         //console.log("Opening feedback");
-        // Add your logic to handle opening feedback
+        // Add logic to handle opening feedback
         alert("Feedback opened");
     }
 
     function handleCloseFeedback(event) {
         //console.log("Closing feedback");
-        // Add your logic to handle closing feedback
+        // Add logic to handle closing feedback
         alert("Feedback closed");
     }
 });
