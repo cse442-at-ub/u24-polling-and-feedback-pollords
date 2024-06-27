@@ -383,7 +383,7 @@ section {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('assets/dropdown.svg');
+  background-image: url('../assets/dropdown.svg');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 15px;

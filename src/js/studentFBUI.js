@@ -1,18 +1,49 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOM fully loaded and parsed");
+
     // Redirect to login page if userEmail is not in localStorage
     if (!localStorage.getItem("userEmail")) {
+        console.log("No userEmail in localStorage, redirecting to login page");
         window.location.href = "index.html"; // Redirect to login page
     } else {
+        console.log("userEmail found in localStorage, checking feedback authorization");
         checkFeedbackAuth();
     }
 
     function displayFeedback(isOpen) {
         if (isOpen == 0) {
-            document.getElementById("feedback-container").style.display = "none";
-            document.getElementById("unavailable-container").style.display = "flex";
+            console.log("Feedback is not open, displaying unavailable message");
+            const dashboard = document.getElementById("feedback-container");
+            const container = document.createElement('div');
+            container.className = 'container';
+            container.innerHTML = `
+                <p>Feedback for this course is currently unavailable.</p>`
+            dashboard.appendChild(container);
+            //document.getElementById("feedback-container").style.display = "none";
+            //document.getElementById("unavailable-container").style.display = "flex";
         } else if (isOpen == 1) {
-            document.getElementById("feedback-container").style.display = "block";
-            document.getElementById("unavailable-container").style.display = "none";
+            const dashboard = document.getElementById("feedback-container");
+            const container = document.createElement('div');
+            container.className = 'container';
+            container.innerHTML = `
+                <p>Class: CSE 442 Software Engineering Concepts</p>
+                <p>Please enter your feedback for how comfortable you are with the pace of the class. Answer using a number from 1 to 5, with:</p>
+                <p>1 - "I'm Lost"</p>
+                <p>3 - "Just right"</p>
+                <p>5 - "This is easy"</p>
+                <p>Feedback Level</p>
+                <div class="dropdown-container">
+                    <select id="feedback-level">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button id="submit-btn">Submit</button> `
+            dashboard.appendChild(container);
+            console.log("Feedback is open, displaying feedback form");
+            //document.getElementById("feedback-container").style.display = "block";
+            //document.getElementById("unavailable-container").style.display = "none";
         }
     }
 
@@ -21,6 +52,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let courseId = urlParam.get("courseId");
         const formData = new FormData();
         formData.append("courseID", courseId);
+
+        console.log("Checking feedback authorization for course ID:", courseId);
 
         fetch("php/checkAuthFeedback.php", {
             method: "post",
@@ -33,9 +66,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return response.json();
         })
         .then((data) => {
+            console.log("Received response from checkAuthFeedback:", data);
             let check = data.instructor;
             if (check == 1) {
-                location.href = 'main.html';
+                console.log("User is an instructor, redirecting to mainStud.html");
+                location.href = 'mainStud.html';
             }
             displayFeedback(data.feedbackOpen);
         })
@@ -53,6 +88,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const submitButton = document.getElementById('submit-btn');
     if (submitButton) {
+        console.log("Adding event listener to submit button");
         submitButton.addEventListener('click', handleFormSubmission);
     }
 });
