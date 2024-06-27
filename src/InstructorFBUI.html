@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructor Feedback Management</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/instructorFBUI.css">
     <script defer src="js/instructorFBUI.js"></script>
 </head>
 <body>
 
-<div class="header">
-    <div class="back-arrow">&#8592;</div>
-    <h1>Feedback Management</h1>
-</div>
+<div id="instructor-landing">
+    <div id="navBar">
+        <div id="instructor">Instructor</div>
+        <div id="welcomeMessage"></div>
+        <button id="logoutButton">Logout</button>
+    </div>
+    <div id="dashboard">
+        <div class="header">
+            <div class="back-arrow">
+                <a href="mainStud.html" style="text-decoration: none; color: inherit;">&#8592;</a>
+            </div>
+            <h1 id="feedbackStatus">Feedback Management</h1>
+        </div>
 
-<div id="feedback-container" class="feedback-container"></div>
+        <div class="feedback-container-wrapper">
+            <div id="feedback-container" class="feedback-container"></div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
