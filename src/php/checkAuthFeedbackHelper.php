@@ -12,7 +12,7 @@ function checkFeedbackHelper($courseID): array {
         $result = $query->get_result();
         if($result) {
             if ($result && mysqli_num_rows($result) == 0) {
-                $conn->close();
+
                 //header("Location: ../index.html");
                 //exit;
                 return array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0);
@@ -24,7 +24,7 @@ function checkFeedbackHelper($courseID): array {
                 $result = $query->get_result();
                 if($result) {
                     if ($result && mysqli_num_rows($result) == 0) {
-                        $conn->close();
+
                         if($instr==0){
                             return array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0);
 
@@ -46,7 +46,7 @@ function checkFeedbackHelper($courseID): array {
                             $temp = mysqli_fetch_assoc($result)['instructors'];
                         }
                         if($temp==""){
-                            $conn->close();
+
                             if($instr==0){
                                 return array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0);
 
@@ -69,7 +69,7 @@ function checkFeedbackHelper($courseID): array {
                             }
                         }
                         if(!$isMember){
-                            $conn->close();
+
                             if($instr==0){
                                 return array("instructor" => -1, "message" => "Error: You are not a member of this course", "feedbackOpen" => 0);
 
@@ -89,13 +89,13 @@ function checkFeedbackHelper($courseID): array {
                         $query->execute();
                         $result = $query->get_result();
                         $feedbackOpen = mysqli_fetch_assoc($result)['feedbackOpen'];
-                        $conn->close();
+
                         return array("instructor" => $instr, "message" => "Success: User Authorized", "feedbackOpen" => $feedbackOpen);
 
 
                     }
                 } else {
-                    $conn->close();
+
                     if($instr==0){
                         return array("instructor" => -1, "message" => "Error: Course does not exist", "feedbackOpen" => 0);
 
@@ -112,7 +112,7 @@ function checkFeedbackHelper($courseID): array {
                 }
             }
         } else {
-            $conn->close();
+
             //header("Location: ../index.html", true,  301);
             //exit;
             return array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0);
@@ -120,7 +120,7 @@ function checkFeedbackHelper($courseID): array {
 
         }
     } else {
-        $conn->close();
+
         //header("Location: ../index.html", true,  301);
         //exit;
         return array("instructor" => -1,"message"=>"Error: You are not authorized, try logging in again","feedbackOpen"=>0);

@@ -16,4 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $courseID = $_POST['courseID'];
 
     echo json_encode(checkFeedbackHelper($courseID));
+    if(isset($conn->server_info)){
+        $conn->close();
+    }
 }
