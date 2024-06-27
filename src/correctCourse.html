@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correct Course Test</title>
+</head>
+<body>
+    <h1>Correct Course Test</h1>
+    <button onclick="submitFeedback()">Submit</button>
+    <div id="response"></div>
+    <script>
+        function submitFeedback() {
+            fetch('php/getFeedbackResults.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ courseId: 1, email: 'instructorFeedback@buffalo.edu' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = `${data.success}, ${data.averageResponse}`;
+            });
+        }
+    </script>
+</body>
+</html>
