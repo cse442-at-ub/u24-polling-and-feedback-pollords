@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Redirect to login page if userEmail is not in localStorage
     if (!localStorage.getItem("userEmail")) {
-        console.log("No userEmail in localStorage, redirecting to login page");
+        //console.log("No userEmail in localStorage, redirecting to login page");
         window.location.href = "index.html"; // Redirect to login page
     } else {
-        console.log("userEmail found in localStorage, checking feedback authorization");
+        //console.log("userEmail found in localStorage, checking feedback authorization");
         checkFeedbackAuth();
     }
 
@@ -28,15 +28,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             container.innerHTML = `
                 <p>Class: CSE 442 Software Engineering Concepts</p>
                 <p>Please enter your feedback for how comfortable you are with the pace of the class. Answer using a number from 1 to 5, with:</p>
-                <p>1 - "I'm Lost"</p>
-                <p>3 - "Just right"</p>
-                <p>5 - "This is easy"</p>
                 <p>Feedback Level</p>
                 <div class="dropdown-container">
                     <select id="feedback-level">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
+                        <option value="1 - I'm Lost">1</option>
+                        <option value="2 - I'm slightly struggling">2</option>
+                        <option value="3 - Just right">3</option>
+                        <option value="4 - I'm very comfortable">4</option>
+                        <option value="5 - This is easy ">5</option>
                     </select>
                 </div>
                 <button id="submit-btn">Submit</button> `
@@ -44,6 +43,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log("Feedback is open, displaying feedback form");
             //document.getElementById("feedback-container").style.display = "block";
             //document.getElementById("unavailable-container").style.display = "none";
+            const submitButton = document.getElementById('submit-btn');
+            if (submitButton) {
+                console.log("Adding event listener to submit button");
+                submitButton.addEventListener('click', handleFormSubmission);
+            }
         }
     }
 
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const formData = new FormData();
         formData.append("courseID", courseId);
 
-        console.log("Checking feedback authorization for course ID:", courseId);
+        //console.log("Checking feedback authorization for course ID:", courseId);
 
         fetch("php/checkAuthFeedback.php", {
             method: "post",
@@ -88,7 +92,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const submitButton = document.getElementById('submit-btn');
     if (submitButton) {
-        console.log("Adding event listener to submit button");
+        //console.log("Adding event listener to submit button");
         submitButton.addEventListener('click', handleFormSubmission);
     }
 });

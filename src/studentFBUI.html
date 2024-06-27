@@ -9,19 +9,25 @@
 </head>
 <body>
 
-<div class="header">
-    <div class="back-arrow">&#8592;
-        <a href="mainStud.html" style="text-decoration: none; color: inherit;">&#8592;</a>
+<div id="landing">
+    <div id="navBar">
+        <div id="instructor">Student</div>
+        <div id="welcomeMessage"></div>
+        <button id="logoutButton">Logout</button>
     </div>
-    <h1>Feedback</h1>
-</div>
+    <div id="dashboard">
+        <div class="header">
+            <div class="back-arrow">
+                <a href="mainStud.html" style="text-decoration: none; color: inherit;">&#8592;</a>
+            </div>
+            <h1>Feedback</h1>
+        </div>
 
-<div class="feedback-container" id="feedback-container">
-    
-</div>
-
-<div class="unavailable-container" id="unavailable-container" style="display: none;">
-    
+        <div class="feedback-container-wrapper">
+            <div class="feedback-container" id="feedback-container"></div>
+            <div class="unavailable-container" id="unavailable-container" style="display: none;"></div>
+        </div>
+    </div>
 </div>
 
 </body>

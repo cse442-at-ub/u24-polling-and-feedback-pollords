@@ -346,6 +346,12 @@ section {
   margin: 0;
 }
 
+.feedback-container-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .feedback-container {
   padding: 20px;
   border-radius: 10px;
@@ -389,7 +395,7 @@ section {
   background-size: 15px;
 }
 
-.dropdown-container::after {
+/* .dropdown-container::after {
   content: '';
   position: absolute;
   right: 10px;
@@ -397,10 +403,10 @@ section {
   transform: translateY(-50%);
   width: 10px;
   height: 10px;
-  background-image: url('assets/dropdown.svg');
+  background-image: url('../assets/dropdown.svg');
   background-size: cover;
   pointer-events: none;
-}
+} */
 
 .feedback-container button {
   padding: 10px 20px;
