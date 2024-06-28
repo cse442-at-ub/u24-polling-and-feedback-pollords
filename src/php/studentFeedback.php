@@ -112,7 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             echo json_encode(array("success" => false, "message" => "Error: Feedback is closed", "id" => -1));
                             exit();
                         }
-                        if (empty($courseId) || empty($userId) || empty($response)) {
+                        //echo $courseID. "   ". $userID."      ".$response;
+                        if (empty($response)) {
                             $conn->close();
                             echo json_encode(array("success" => false, "message" => "Error: Unable to collect required data", "id" => -1));
                             exit();
