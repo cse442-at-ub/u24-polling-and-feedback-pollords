@@ -3,7 +3,7 @@ async function feedbackPOST(crsID, resp) {
     feedbackData.append("courseID", crsID);
     feedbackData.append("response", resp);
     
-    fetch("php/addFeedback.php", {
+    fetch("php/studentFeedback.php", {
         method: "post",
         body: feedbackData,
     }).then((response) => {
