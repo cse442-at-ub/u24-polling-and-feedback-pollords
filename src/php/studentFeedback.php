@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn=$_SESSION['conn'];
 
     if (isset($_SESSION['token']) && isset($_SESSION['instructor']) && isset($_SESSION['userID'])) {
-        $instr = $_SESSION['instructor'];
+        $instr = $_SESSION['instructor']; // 1 === ERROR
         $token = $_SESSION['token'];
         $userID = $_SESSION['userID'];
         $courseID = $_POST['courseID'];
@@ -52,6 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     } else {
                         $temp = "";
+                        if($instr==1) { // NEW - check for if user is instructor
+                            echo json_encode(array("instructor" => -1, "message" => "Error: You are not a student", "feedbackOpen" => 0));
+                            return;
+                        }
+                        if()
                         if($instr==0){
                             $temp = mysqli_fetch_assoc($result)['students'];
                         } else {
@@ -101,25 +106,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $query->execute();
                         $result = $query->get_result();
                         $feedbackOpen = mysqli_fetch_assoc($result)['feedbackOpen'];
-                        if (empty($courseId) || empty($studentId) || empty($response)) {
-            		    $conn->close();
-            		    echo json_encode(array("success" => false, "message" => "Error: Unable to collect required data","id"=>-1));
-            		    exit();
-        		}
-        		if ($response > 5 || $response < 1) {
-            		    $conn->close();
-            		    echo json_encode(array("success" => false, "message" => "Error: Invalid response value","id"=>-1));
-            		    exit();
-        		}
+                        if ($feedbackOpen==0) { // NEW - checking if feedback is in fact open
+                            $conn->close();
+                            echo json_encode(array("success" => false, "message" => "Error: Feedback is closed","id"=>-1));
+            		        exit();
+                        }
+                        if (empty($courseId) || empty($userId) || empty($response)) {
+            		        $conn->close();
+            		        echo json_encode(array("success" => false, "message" => "Error: Unable to collect required data","id"=>-1));
+            		        exit();
+        		        }
+        		        if ($response > 5 || $response < 1) {
+            		        $conn->close();
+            		        echo json_encode(array("success" => false, "message" => "Error: Invalid response value","id"=>-1));
+            		        exit();
+        		        }
 
-        		$preppedQuery = $conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value (?, ?, ?)");
-        		$preppedQuery->bind_param("sss", $courseID, $studentID, $response);
-        		$preppedQury->execute();
-        		//mysqli_query($conn, $preppedQuery);
-        		echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$studentID)); // I am a titan of PHP
-        		$conn->close();
+        		        $preppedQuery = $conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value (?, ?, ?)");
+        		        $preppedQuery->bind_param("sss", $courseID, $userID, $response);
+        		        $preppedQury->execute();
+        		        //mysqli_query($conn, $preppedQuery);
+        		        echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$userID)); // I am a titan of PHP
+        		        $conn->close();
 
-                    }
+                        }
                 } else {
                     $conn->close();
                     if($instr==0){
