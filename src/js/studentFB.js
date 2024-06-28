@@ -22,8 +22,10 @@ async function feedbackPOST(crsID, resp) {
 
 function feedbackResponder(data) {
     if (data.success) {
+        window.location.href = `mainStud.html`; // should probably be doing this?
         // do something, store feedback to localStorage, maybe redirect
     } else {
+        throw new Error("Feedback submission failed");
         // access and print error ID if in document or just return new error
     }
 }
