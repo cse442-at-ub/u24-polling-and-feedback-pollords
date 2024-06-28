@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = $_SESSION['token'];
         $userID = $_SESSION['userID'];
         $courseID = $_POST['courseID'];
+        $response = $_POST['response']; // forgot to keep this before
         $query = $conn->prepare("select * from tokens where token = ? limit 1");
         $query->bind_param("s", $token);
         $query->execute();
@@ -116,16 +117,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             		        echo json_encode(array("success" => false, "message" => "Error: Unable to collect required data","id"=>-1));
             		        exit();
         		        }
+                        if ()
         		        if ($response > 5 || $response < 1) {
             		        $conn->close();
             		        echo json_encode(array("success" => false, "message" => "Error: Invalid response value","id"=>-1));
             		        exit();
         		        }
 
-        		        $preppedQuery = $conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value (?, ?, ?)");
-        		        $preppedQuery->bind_param("sss", $courseID, $userID, $response);
-        		        $preppedQury->execute();
+        		        //$preppedQuery = $conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value (?, ?, ?)");
+                        //$preppedQuery = $conn->prepare("UPDATE feedbackAnswers SET response = ? WHERE courseID = ? and studentID = ?"); // precludes students from submitting multiple responses
+                        $preppedQuery = $conn->prepare("select * from feedbackAnswers where courseID = ? and studentID = ? limit 1");
+        		        $preppedQuery->bind_param("ss", $courseID, $userID);//, $response);
+        		        $preppedQuery->execute();
+                        $pqResult = $preppedQuery->get_result();
         		        //mysqli_query($conn, $preppedQuery);
+
+                        if ($pqResult) {
+                            if ($pqResult && mysqli_num_rows($pqResult) > 0) {
+                                $preppedUpdate = $conn->prepare("UPDATE feedbackAnswers SET response = ? WHERE courseID = ? and studentID = ?");
+                                $preppedUpdate->bind_param("sss", $courseID, $userID, $response);
+                                $preppedUpdate->execute();
+                             } else {
+                                $preppedInsert = $conn->prepare("INSERT INTO feedbackAnswers (courseID, studentID, response) value (?, ?, ?)");
+                                $preppedInsert->bind_param("sss", $courseID, $userID, $response);
+                                $preppedInsert->execute();
+                        }
         		        echo json_encode(array("success" => true, "message" => "Success: Feedback sent correctly","id"=>$userID)); // I am a titan of PHP
         		        $conn->close();
 
