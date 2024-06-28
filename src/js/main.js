@@ -48,7 +48,7 @@ function courseCreate(){
 }
 function startFeedback(courseId) {
   // Logic to start feedback mode
-  window.location.href = `feedback.html?courseId=${courseId}`;
+  window.location.href = `InstructorFBUI.html?courseId=${courseId}`;
 }
 
 function createPoll(courseId) {
