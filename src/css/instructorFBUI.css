@@ -29,15 +29,26 @@ body {
   width: 100vw;
   background-color: #666666;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#instructor {
-  font-size: 3rem;
-  color: white;
-  text-transform: capitalize;
+#navBar .back-arrow {
   margin-right: auto;
+}
+
+#navBar .back-arrow a {
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+#feedbackStatus {
+  font-size: 2.4rem;
+  color: white;
+  text-align: center;
+  flex-grow: 1;
 }
 
 #welcomeMessage {
@@ -107,18 +118,19 @@ body {
 }
 
 .feedback-container p {
-  font-size: 16px;
+  font-size: 18px;
   color: black;
 }
 
 .feedback-container ul {
   text-align: left;
   padding-left: 20px;
+  font-size: 18px;
 }
 
 .feedback-container button {
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #fff;
   border: none;
   border-radius: 5px;
