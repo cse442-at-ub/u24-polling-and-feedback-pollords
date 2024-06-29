@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-
     if (!localStorage.getItem("userEmail")) {
         window.location.href = "index.html"; // Redirect to login page
     } else {
@@ -7,37 +6,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function displayFeedback(isOpen) {
+        const feedbackStatus = document.getElementById("feedbackStatus");
+        const feedbackContainer = document.getElementById("feedback-container");
+
         if (isOpen == 0) {
-            console.log("Feedback is not open, displaying unavailable message");
-            const dashboard = document.getElementById("feedback-container");
-            const container = document.createElement('div');
-            container.className = 'container';
-            container.innerHTML = `
-                <p>Feedback for this course is currently unavailable.</p>`
-            dashboard.appendChild(container);
+            feedbackStatus.textContent = "Feedback Closed";
+            feedbackContainer.innerHTML = `
+                <div class="container">
+                    <p>Feedback for this course is currently unavailable.</p>
+                </div>`;
         } else if (isOpen == 1) {
-            const dashboard = document.getElementById("feedback-container");
-            const container = document.createElement('div');
-            container.className = 'container';
-            container.innerHTML = `
-                <p>Class: CSE 442 Software Engineering Concepts</p>
-                <p>Please enter your feedback for how comfortable you are with the pace of the class. Answer using a number from 1 to 5, with:</p>
-                <p>Feedback Level</p>
-                <div class="dropdown-container">
-                    <select id="feedback-level">
-                        <option value="1 - I'm Lost">1</option>
-                        <option value="2 - I'm slightly struggling">2</option>
-                        <option value="3 - Just right">3</option>
-                        <option value="4 - I'm very comfortable">4</option>
-                        <option value="5 - This is easy ">5</option>
-                    </select>
-                </div>
-                <button id="submit-btn">Submit</button> `
-            dashboard.appendChild(container);
-            console.log("Feedback is open, displaying feedback form");
+            feedbackStatus.textContent = "Feedback Open";
+            feedbackContainer.innerHTML = `
+                <div class="container">
+                    <p>Class: CSE 442 Software Engineering Concepts</p>
+                    <p></p>
+                    <p>Please enter your feedback for how comfortable you are with the pace of the class. Answer using a number from 1 to 5, with:</p>
+                    <p></p>
+                    <p>Feedback Level</p>
+                    <div class="dropdown-container">
+                        <select id="feedback-level">
+                            <option value="1 - I'm Lost">1 - I'm Lost</option>
+                            <option value="2 - I'm slightly struggling">2 - I'm slightly struggling</option>
+                            <option value="3 - Just right">3 - Just right</option>
+                            <option value="4 - I'm very comfortable">4 - I'm very comfortable</option>
+                            <option value="5 - This is easy">5 - This is easy</option>
+                        </select>
+                    </div>
+                    <button id="submit-btn">Submit</button>
+                </div>`;
+            
             const submitButton = document.getElementById('submit-btn');
             if (submitButton) {
-                //console.log("Adding event listener to submit button");
                 submitButton.addEventListener('click', handleFormSubmission);
             }
         }
@@ -48,8 +48,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let courseId = urlParam.get("courseId");
         const formData = new FormData();
         formData.append("courseID", courseId);
-
-        //console.log("Checking feedback authorization for course ID:", courseId);
 
         fetch("php/checkAuthFeedback.php", {
             method: "post",
@@ -62,10 +60,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return response.json();
         })
         .then((data) => {
-            //console.log("Received response from checkAuthFeedback:", data);
             let check = data.instructor;
             if (check == 1) {
-                //console.log("User is an instructor, redirecting to mainStud.html");
                 location.href = 'mainStud.html';
             }
             displayFeedback(data.feedbackOpen);
@@ -77,14 +73,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function handleFormSubmission(event) {
         event.preventDefault();
-        //const feedbackLevel = document.getElementById('feedback-level').value;
+        const feedbackLevel = document.getElementById('feedback-level').value;
         alert(`Feedback submitted: ${feedbackLevel}`);
         // Add form submission logic 
-    }
-
-    const submitButton = document.getElementById('submit-btn');
-    if (submitButton) {
-        //console.log("Adding event listener to submit button");
-        submitButton.addEventListener('click', handleFormSubmission);
     }
 });
