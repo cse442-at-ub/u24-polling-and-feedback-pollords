@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         if (feedbackContainer) {
             if (isOpen == 0) {
+                console.log("Feedback CLosed")
                 feedbackStatus.textContent = "Closed Feedback";
                 feedbackContainer.innerHTML = `
                     <div class="container">
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             } else if (isOpen == 1) {
                 feedbackStatus.textContent = "Opened Feedback";
+                console.log("Feedback OPen")
                 feedbackContainer.innerHTML = `
                     <div class="container">
                         <p>Class: CSE 442 Software Engineering Concepts</p>
