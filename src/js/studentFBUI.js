@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    //console.log("DOM fully loaded and parsed");
 
     if (!localStorage.getItem("userEmail")) {
-        //console.log("No userEmail in localStorage, redirecting to login page");
         window.location.href = "index.html"; // Redirect to login page
     } else {
-        //console.log("userEmail found in localStorage, checking feedback authorization");
         checkFeedbackAuth();
     }
 
@@ -18,8 +15,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             container.innerHTML = `
                 <p>Feedback for this course is currently unavailable.</p>`
             dashboard.appendChild(container);
-            //document.getElementById("feedback-container").style.display = "none";
-            //document.getElementById("unavailable-container").style.display = "flex";
         } else if (isOpen == 1) {
             const dashboard = document.getElementById("feedback-container");
             const container = document.createElement('div');
@@ -40,8 +35,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 <button id="submit-btn">Submit</button> `
             dashboard.appendChild(container);
             console.log("Feedback is open, displaying feedback form");
-            //document.getElementById("feedback-container").style.display = "block";
-            //document.getElementById("unavailable-container").style.display = "none";
             const submitButton = document.getElementById('submit-btn');
             if (submitButton) {
                 //console.log("Adding event listener to submit button");
