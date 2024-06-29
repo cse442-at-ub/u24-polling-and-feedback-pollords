@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    console.log("DOM fully loaded and parsed");
+    //console.log("DOM fully loaded and parsed");
 
-    // Redirect to login page if userEmail is not in localStorage
     if (!localStorage.getItem("userEmail")) {
         //console.log("No userEmail in localStorage, redirecting to login page");
         window.location.href = "index.html"; // Redirect to login page
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             //document.getElementById("unavailable-container").style.display = "none";
             const submitButton = document.getElementById('submit-btn');
             if (submitButton) {
-                console.log("Adding event listener to submit button");
+                //console.log("Adding event listener to submit button");
                 submitButton.addEventListener('click', handleFormSubmission);
             }
         }
@@ -70,10 +69,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return response.json();
         })
         .then((data) => {
-            console.log("Received response from checkAuthFeedback:", data);
+            //console.log("Received response from checkAuthFeedback:", data);
             let check = data.instructor;
             if (check == 1) {
-                console.log("User is an instructor, redirecting to mainStud.html");
+                //console.log("User is an instructor, redirecting to mainStud.html");
                 location.href = 'mainStud.html';
             }
             displayFeedback(data.feedbackOpen);
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function handleFormSubmission(event) {
         event.preventDefault();
-        const feedbackLevel = document.getElementById('feedback-level').value;
+        //const feedbackLevel = document.getElementById('feedback-level').value;
         alert(`Feedback submitted: ${feedbackLevel}`);
         // Add form submission logic 
     }
