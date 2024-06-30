@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Course</title>
+</head>
+<body>
+<script src="js/requestFeedback.js">
+</script>
+<script>
+    function feedbackPOSTTest(){
+        var ac = document.getElementById("courseID").value;
+
+        sendCourseId(ac);
+    }
+</script>
+<h1>Create a New Course</h1>
+
+    <label for="courseID">courseID:</label><br>
+    <input type="text" id="courseID" name="courseID" value="2" required><br>
+
+    <input type="submit" value="Submit" onclick="feedbackPOSTTest()" formnovalidate>
+
+</body>
+</html>
