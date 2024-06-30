@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function sendCourseId(courseId) {
     // Check for invalid course ID formats
+    console.log(courseId);
+    const formData = new FormData();
+    formData.append("courseId",courseId)
     if (isNaN(courseId) || courseId < 0) {
         console.error("Invalid Course Format");
         document.getElementById('response').innerText = "Invalid Course Format";
@@ -15,18 +18,17 @@ async function sendCourseId(courseId) {
     }
 
     try {
-        const response = await fetch('/u24-polling-and-feedback-pollords/src/php/getFeedbackResults.php', {
+        const response = await fetch('php/getFeedbackResults.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ courseId: courseId }),
+            body: formData
         });
+        //console.log(response.text())
 
         const result = await response.json();
-        document.getElementById('response').innerText = JSON.stringify(result);
+        console.log(result)
+        //document.getElementById('response').innerText = JSON.stringify(result);
     } catch (error) {
         console.error("Error:", error);
-        document.getElementById('response').innerText = "Error: Unable to fetch feedback results.";
+       // document.getElementById('response').innerText = "Error: Unable to fetch feedback results.";
     }
 }
