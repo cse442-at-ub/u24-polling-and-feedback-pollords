@@ -25,8 +25,16 @@ function feedbackResponder(data) {
         console.log(data.message);
         // window.location.href = `mainStud.html`; // should probably be doing this?
         // do something, store feedback to localStorage, maybe redirect
+        let temp = document.getElementById('errorText')
+        temp.innerHTML = data.message;
+        temp.style.color = "green";
+        temp.style.display = "block";
     } else {
         console.log(data.message);
+        let temp = document.getElementById('errorText')
+        temp.innerHTML = data.message;
+        temp.style.color = "red";
+        temp.style.display = "block";
         // throw new Error("Feedback submission failed");
         // access and print error ID if in document or just return new error
     }
