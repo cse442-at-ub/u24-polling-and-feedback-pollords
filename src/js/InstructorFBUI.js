@@ -1,64 +1,99 @@
-if (!localStorage.getItem("userEmail")) {
-    window.location.href = "index.html"; // Redirect to login page
-} else {
-    checkFeedbackAuth()
-
-}
-function display(open){
-    if(open==0){
-        const dashboard = document.getElementById("dashboard");
-        const courseBox = document.createElement('div');
-        courseBox.className = 'courseBox';
-        courseBox.innerHTML = `
-            <div class="courseTitle">Not Open</div>
-            `;
-        dashboard.appendChild(courseBox);
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (!localStorage.getItem("userEmail")) {
+        window.location.href = "index.html"; // Redirect to login page
+    } else {
+        checkFeedbackAuth();
     }
-    if(open==1){
-        const dashboard = document.getElementById("dashboard");
-        const courseBox = document.createElement('div');
-        courseBox.className = 'courseBox';
-        courseBox.innerHTML = `
-            <div class="courseTitle">Open</div>
-            `;
-        dashboard.appendChild(courseBox);
+
+    function displayFeedback(isOpen, numberOfResponses = 0, medianRating = 0) {
+        const feedbackContainer = document.getElementById("feedback-container");
+        const feedbackStatus = document.getElementById("feedbackStatus");
+
+        if (feedbackContainer) {
+            if (isOpen == 0) {
+                console.log("Feedback CLosed")
+                feedbackStatus.textContent = "Closed Feedback";
+                feedbackContainer.innerHTML = `
+                    <div class="container">
+                        <p>Class: CSE 442 Software Engineering Concepts</p>
+                        <p>Open feedback to allow students to rate the pace of the class. Answers range from 1 to 5, with:</p>
+                        <ul>
+                            <li>1 - "I'm Lost"</li>
+                            <li>2 - "I'm slightly struggling"</li>
+                            <li>3 - "Just right"</li>
+                            <li>4 - "I'm very comfortable"</li>
+                            <li>5 - "This is easy"</li>
+                        </ul>
+                        <button id="open-feedback-btn">Open Feedback</button>
+                    </div>`;
+
+                const openButton = document.getElementById('open-feedback-btn');
+                if (openButton) {
+                    openButton.addEventListener('click', handleOpenFeedback);
+                }
+            } else if (isOpen == 1) {
+                feedbackStatus.textContent = "Opened Feedback";
+                console.log("Feedback OPen")
+                feedbackContainer.innerHTML = `
+                    <div class="container">
+                        <p>Class: CSE 442 Software Engineering Concepts</p>
+                        <p>Open feedback to allow students to rate the pace of the class. Answers range from 1 to 5, with:</p>
+                        <ul>
+                            <li>1 - "I'm Lost"</li>
+                            <li>2 - "I'm slightly struggling"</li>
+                            <li>3 - "Just right"</li>
+                            <li>4 - "I'm very comfortable"</li>
+                            <li>5 - "This is easy"</li>
+                        </ul>
+                        <p>Number of Responses: ${numberOfResponses}</p>
+                        <p>Median Rating: ${medianRating}</p>
+                        <button id="close-feedback-btn">Close Feedback</button>
+                    </div>`;
+
+                const closeButton = document.getElementById('close-feedback-btn');
+                if (closeButton) {
+                    closeButton.addEventListener('click', handleCloseFeedback);
+                }
+            }
+        }
     }
-}
 
+    function checkFeedbackAuth() {
+        const urlParam = new URLSearchParams(window.location.search);
+        let courseId = urlParam.get("courseId");
+        const formData = new FormData();
+        formData.append("courseID", courseId);
+        formData.append("userEmail", localStorage.getItem("userEmail"));
 
-function checkFeedbackAuth() {
-    const urlParam = new URLSearchParams(window.location.search);
-    let courseId = urlParam.get("courseId");
-    const formData = new FormData();
-    formData.append("courseID",courseId)
-
-    console.log(formData)
-
-    fetch("php/checkAuthFeedback.php", {
-        method: "post",
-        body: formData,
-    })
+        fetch("php/checkAuthFeedback.php", {
+            method: "post",
+            body: formData,
+        })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            //console.log(response)
-            //console.log(response.text())
-            let temp = response.json()
-            console.log(temp)
-            return temp;
-        }).then((data) => {
-        let check = data.instructor;
-        if(check == -1){
-            location.href = 'main.html';
-        }
-        if(check == 0){
-            location.href = 'mainStud.html';
-        }
-        display(data.feedbackOpen)
-
-    })
+            return response.json();
+        })
+        .then((data) => {
+            let isInstructor = data.instructor;
+            if (!isInstructor) {
+                location.href = 'mainStud.html';
+            }
+            displayFeedback(data.feedbackOpen, data.numberOfResponses, data.medianRating);
+        })
         .catch((error) => {
             console.error("Error sending data to the backend:", error);
         });
-}
+    }
+
+    function handleOpenFeedback(event) {
+        alert("Feedback opened");
+        // Add logic to handle opening feedback
+    }
+
+    function handleCloseFeedback(event) {
+        alert("Feedback closed");
+        // Add logic to handle closing feedback
+    }
+});
