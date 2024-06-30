@@ -16,8 +16,13 @@ function createConfirmCode($email,$pass): array
 
     $hashed = password_hash($pass, PASSWORD_BCRYPT);
 
-    $query = "select * from userAccs where email = '$email' limit 1";
-    $result = mysqli_query($conn, $query);
+    $query = $conn->prepare("select * from userAccs where email = ? limit 1");
+    $query->bind_param("s", $email);
+    $query->execute();
+    $result = $query->get_result();
+
+    //$query = "select * from userAccs where email = '$email' limit 1";
+    //$result = mysqli_query($conn, $query);
 
 
     $temp = strpos($email,"@buffalo.edu");

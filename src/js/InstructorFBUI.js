@@ -49,6 +49,9 @@ function checkFeedbackAuth() {
             return temp;
         }).then((data) => {
         let check = data.instructor;
+        if(check == -1){
+            location.href = 'main.html';
+        }
         if(check == 0){
             location.href = 'mainStud.html';
         }
