@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Correct Course Test</title>
     <script>
-        async function submitCorrectCourse(courseID) {
+        async function submitCorrectCourse(courseId) {
             // Validate the course ID
-            if (isNaN(courseID) || courseID < 0) {
+            if (isNaN(courseId) || courseId < 0) {
                 console.error("Invalid Course ID");
                 document.getElementById('response').innerText = "Invalid Course ID";
                 return;
@@ -14,10 +14,10 @@
 
             // Prepare the form data
             const formData = new FormData();
-            formData.append("courseID", courseID);
+            formData.append("courseId", courseId);
 
             try {
-                const response = await fetch('php/checkAuthFeedback.php', {
+                const response = await fetch('php/getFeedbackResults.php', {
                     method: 'POST',
                     body: formData
                 });
@@ -38,7 +38,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('submitButton').addEventListener('click', function(event) {
                 event.preventDefault(); // Prevent the default button behavior
-                submitCorrectCourse(23); // Pass the courseID to the function
+                submitCorrectCourse(23); // Pass the courseId to the function
             });
         });
     </script>
