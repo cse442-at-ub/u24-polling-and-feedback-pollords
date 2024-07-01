@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($pqResult) {
                             if ($pqResult && mysqli_num_rows($pqResult) > 0) {
-                                $preppedUpdate = $conn->prepare("UPDATE feedbackAnswers SET response = ? WHERE courseID = ? and studentID = ?");
+                                $preppedUpdate = $conn->prepare("UPDATE feedbackAnswers SET response = ?, timeUpdated = CURRENT_TIMESTAMP WHERE courseID = ? and studentID = ?");
                                 $preppedUpdate->bind_param("sss", $response, $courseID, $userID);
                                 $preppedUpdate->execute();
                             } else {
