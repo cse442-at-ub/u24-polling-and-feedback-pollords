@@ -322,6 +322,7 @@ section {
   background-color: #C0C0C0; /* Darker grey for hover effect */
 }
 
+
 /* Additional styles from studentFB.css */
 .header {
   background-color: #ccc;
@@ -347,10 +348,12 @@ section {
 }
 
 .feedback-container-wrapper {
+
   display: flex;
   justify-content: center;
   width: 100%;
 }
+
 
 .feedback-container {
   padding: 20px;
@@ -409,6 +412,7 @@ section {
 } */
 
 .feedback-container button {
+
   padding: 10px 20px;
   font-size: 16px;
   background-color: #fff;
@@ -419,6 +423,7 @@ section {
   display: block;
   margin-left: auto;
   margin-right: auto;
+
 }
 
 .unavailable-container {
@@ -430,3 +435,4 @@ section {
   font-size: 22px;
   color: #333;
 }
+

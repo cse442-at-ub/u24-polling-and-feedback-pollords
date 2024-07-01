@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Instructor Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Feedback Management</title>
+    <link rel="stylesheet" href="css/instructorFBUI.css">
+    <script defer src="js/InstructorFBUI.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-<div id="landing">
-    <div id="navBar">
-        <div id="instructor">Feedback</div>
-    </div>
-    <div id="dashboard">
 
+    <div id="instructor-landing">
+        <div id="navBar">
+            <div class="back-arrow">
+                <a href="main.html" style="text-decoration: none; color: inherit;">&#8592;</a>
+            </div>
+            <h1 id="feedbackStatus"></h1>
+            <div id="welcomeMessage"></div>
+
+        </div>
+        <div id="dashboard">
+            <div class="feedback-container-wrapper">
+                <div id="feedback-container" class="feedback-container"></div>
+            </div>
+        </div>
     </div>
-</div>
-<script src="js/InstructorFBUI.js"></script>
+
 </body>
-
 </html>
