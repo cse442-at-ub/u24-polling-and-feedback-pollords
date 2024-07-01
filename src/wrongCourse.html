@@ -4,24 +4,48 @@
     <meta charset="UTF-8">
     <title>Wrong Course Test</title>
     <script>
-        async function submitWrongCourse() {
-            const response = await fetch('php/checkAuthFeedback.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    courseID: 2 // Assuming 2 is the ID of a course not instructed by the current user
-                }),
-            });
-            const result = await response.json();
-            document.getElementById('response').innerText = JSON.stringify(result);
+        async function submitWrongCourse(courseID) {
+            // Validate the course ID
+            if (isNaN(courseID) || courseID < 0) {
+                console.error("Invalid Course ID");
+                document.getElementById('response').innerText = "Invalid Course ID";
+                return;
+            }
+
+            // Prepare the form data
+            const formData = new FormData();
+            formData.append("courseID", courseID);
+
+            try {
+                const response = await fetch('php/checkAuthFeedback.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    document.getElementById('response').innerText = `Error: ${response.statusText}`;
+                    return;
+                }
+
+                const result = await response.json();
+                document.getElementById('response').innerText = JSON.stringify(result);
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('response').innerText = `Error: ${error.message}`;
+            }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('submitButton').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default button behavior
+                submitWrongCourse(2); // Pass the courseID to the function
+            });
+        });
     </script>
 </head>
 <body>
     <h1>Test Wrong Course</h1>
-    <button onclick="submitWrongCourse()">Submit</button>
+    <button id="submitButton">Submit</button>
     <div id="response"></div>
 </body>
 </html>
