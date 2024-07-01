@@ -14,7 +14,7 @@
 
             // Prepare the form data
             const formData = new FormData();
-            formData.append("courseID", courseID);
+            formData.append("courseId", courseID);
 
             try {
                 const response = await fetch('php/getFeedbackResults.php', {
