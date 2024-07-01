@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Send Course ID</title>
-    <script src="../../js/requestFeedback.js"></script>
+    <script src="requestFeedback.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('courseForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                var courseId = document.getElementById('courseId').value;
+                sendCourseId(courseId);
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>Send Course ID</h1>
