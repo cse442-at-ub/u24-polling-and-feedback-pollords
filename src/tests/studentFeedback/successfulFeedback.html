@@ -19,7 +19,7 @@
         document.getElementById('goodFeedback').onsubmit = function(event) {
             event.preventDefault();
             const formData = new FormData(this);
-            fetch('studentFeedback.php', {
+            fetch('../../php/studentFeedback.php', {
                 method: 'POST',
                 body: formData
             })
