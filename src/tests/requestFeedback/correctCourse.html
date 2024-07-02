@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Course ID</title>
+    <script src="requestFeedback.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('courseForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                var courseId = document.getElementById('courseId').value;
+                sendCourseId(courseId);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Send Course ID</h1>
+    <form id="courseForm">
+        <label for="courseId">Course ID:</label>
+        <input type="text" id="courseId" name="courseId">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+</body>
+</html>

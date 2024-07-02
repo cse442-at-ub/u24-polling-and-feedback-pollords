@@ -22,7 +22,7 @@ if (!localStorage.getItem("userEmail")) {
               <div class="courseTitle">${course.courseName}</div>
               <div>
                 <button onclick="provideFeedback(${courseId})">Feedback</button>
-                <button onclick="participatePoll(${courseId})">Poll</button>
+                <button onclick="participatePoll(${courseId})"style="display: none">Poll</button>
               </div>`;
             dashboard.appendChild(courseBox);
           });
@@ -40,6 +40,7 @@ if (!localStorage.getItem("userEmail")) {
   
   function provideFeedback(courseId) {
     // Logic to provide feedback
+      window.location.href = `studentFBUI.html?courseId=${courseId}`;
   }
   
   function participatePoll(courseId) {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Correct Course Test</title>
+    <script>
+        async function submitCorrectCourse(courseId) {
+            // Validate the course ID
+            if (isNaN(courseId) || courseId < 0) {
+                console.error("Invalid Course ID");
+                document.getElementById('response').innerText = "Invalid Course ID";
+                return;
+            }
+
+            // Prepare the form data
+            const formData = new FormData();
+            formData.append("courseId", courseId);
+
+            try {
+                const response = await fetch('php/getFeedbackResults.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    document.getElementById('response').innerText = `Error: ${response.statusText}`;
+                    return;
+                }
+
+                const result = await response.json();
+                document.getElementById('response').innerText = JSON.stringify(result);
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('response').innerText = `Error: ${error.message}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('submitButton').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default button behavior
+                submitCorrectCourse(23); // Pass the courseId to the function
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Test Correct Course</h1>
+    <button id="submitButton">Submit</button>
+    <div id="response"></div>
+</body>
+</html>

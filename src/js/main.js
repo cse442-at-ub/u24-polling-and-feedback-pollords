@@ -23,7 +23,7 @@ if (!localStorage.getItem("userEmail")) {
             <div class="courseTitle">${course.courseName}</div>
             <div class="temp">
               <button onclick="startFeedback(${courseId})" style="margin-left: auto">Feedback</button>
-              <button onclick="createPoll(${courseId})">Poll</button>
+              <button onclick="createPoll(${courseId})" style="display: none">Poll</button>
               <button onclick="uploadStudents(${courseId})">Upload Students File</button>
               <button onclick="addStudents(${courseId})">Add Students</button>
               <div class='errorText' id='errorText${courseId}' style="color: black;"></div>
@@ -48,7 +48,7 @@ function courseCreate(){
 }
 function startFeedback(courseId) {
   // Logic to start feedback mode
-  window.location.href = `feedback.html?courseId=${courseId}`;
+  window.location.href = `InstructorFBUI.html?courseId=${courseId}`;
 }
 
 function createPoll(courseId) {

@@ -33,9 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed =
             password_hash($password,
                 PASSWORD_BCRYPT);
-        $query = "insert into userAccs (email,password,instructor) values ('$email','$hashed',$temp)";
 
-        mysqli_query($conn, $query);
+        $query = $conn->prepare("insert into userAccs (email,password,instructor) values (?,?,?)");
+        $query->bind_param("ssi", $email,$hashed,$temp);
+        $query->execute();
+
+        //$query = "insert into userAccs (email,password,instructor) values ('$email','$hashed',$temp)";
+        //mysqli_query($conn, $query);
+
         tokenCreate($email,$temp);
 
     } else {
